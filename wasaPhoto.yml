@@ -1,0 +1,584 @@
+openapi: 3.0.3
+info:
+  title: WasaPhoto
+  description: |-
+    Keep in touch with your friends by sharing photos of special moments, thanks to WASAPhoto! You can
+    upload your photos directly from your PC, and they will be visible to everyone following you.
+  version: "1"
+
+
+tags:
+- name: "Login"
+  description: "Log-in section"
+- name: "Profile"
+  description: "All the operation you can do on your profile"
+- name: "User Operations"
+  description: "All the operations that can be done on the profiles of other users"
+- name: "Photo Operations"
+  description: "Section dedicated to photo operations"
+- name: "Stream"
+  description: "Home section"
+- name: Search
+  description: "Search section"
+
+
+
+paths:
+  /session:
+    post:
+      tags: ["Login"]
+      summary: Logs in the user
+      description: |-
+        If the user does not exist, it will be created,
+        and an identifier is returned.
+        If the user exists, the user identifier is returned.
+      operationId: doLogin
+      requestBody:
+        description: User details
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Maria
+                  pattern: 'ˆ.*?$'
+                  minLength: 3
+                  maxLength: 16
+        required: true
+      responses:
+        '201':
+          description: User log-in action successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  identifier:
+                    type: string
+                    example: "abcdef012345"
+
+
+
+
+
+
+  /search/{username}: 
+    get:
+      tags: ["Search"]
+      operationId: getUserProfile
+      summary: returns info profile
+      description: |-
+        Given the username as input, 
+        if it exists it returns the user's profile info
+
+      parameters: 
+        - name: username
+          in: path
+          required: true
+          description: username
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+      
+      responses:
+        "200":
+          description: profile info
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Profile" }  
+
+        "404":
+          description: "User not found"
+
+  /profile/{username}:
+
+    put:
+      tags: ["Profile"]
+      operationId: setMyUserName
+      summary: change username
+      description: |-
+        Given a username as input, this operation allows you to change it
+        with the username specified in the body of the request.
+
+      parameters: 
+        - name: username
+          in: path
+          required: true
+          description: nome dell'utente
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+
+      responses:
+        "200":
+          description: Username changed successfully
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Profile/properties/username" }
+        "404":
+          description: "User not found"
+
+#ritornabio
+  /profile/bio:
+    get:
+      tags: ["Profile"]
+      operationId: "getMyBio"
+      summary: returns the user bio
+      description: |- 
+        Returns a brief biography of the personal user
+
+      responses:
+        "200":
+          description: user bio
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Profile/properties/Bio" } 
+
+#modificaBio
+
+    put:
+      tags: ["Profile"]
+      operationId: setMyBio
+      summary: change the bio
+      description: |-
+        This operation allows you to change the bio of the
+        personal user with the bio specified
+        in the body of the request.
+
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Profile/properties/Bio" }
+
+
+      responses:
+        "200":
+          description: Bio changed successfully
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Profile/properties/Bio" }
+
+
+
+  /profile/{id}/photo:
+    post:
+      tags : ["Profile"]
+      operationId: "uploadPhoto"
+      summary: upload an image
+      description: |-
+        upload a new photo with the properties specified in the
+        requestBody
+
+
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Photo" }
+
+      responses:
+        "200":
+          description: Foto caricata correttamente
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Photo" }
+
+
+  /profile/{id}/photo/{idPhoto}:
+    delete:
+      tags : ["Profile"]
+      operationId: "deletePhoto"
+      summary: remove a photo
+      description: |-
+        remove a photo from the personal profile
+
+      parameters: 
+        - name: PhotoID
+          in: path
+          required: true
+          description: id of the photo to delete
+          schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+
+
+
+      responses:
+        "204": { description: photo removed successfully}
+        
+#getMyStream
+  /stream:
+    get:
+      tags: ["Stream"]
+      operationId: getMyStream
+      summary: returns the stream
+      description: |-
+        Returns the photos of all the users I follow
+      
+      responses:
+        "200":
+          description: stream
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Photo" }  
+
+
+
+  /bio/{username}:
+    get:
+      tags: ["User Operations"]
+      operationId: "getUserBio"
+      summary: returns the user bio
+      description: |- 
+        Returns a brief biography of the user searched
+
+      parameters: 
+        - name: username
+          in: path
+          required: true
+          description: user name
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+
+      responses:
+        "200":
+          description: user bio
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Profile/properties/Bio" } 
+
+
+
+
+  /follow/{username}: #/serach/{username}/follow
+    post: 
+      tags : ["User Operations"]
+      operationId: "followUser"
+      description: |-
+        represents the operation of following a user,
+        giving the username as input
+      summary: follow a user 
+      
+      parameters: 
+        - name: username
+          in: path
+          required: true
+          description: user name to follow
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+      responses:
+        "200":
+          description: User followed successfully!
+        "404":
+          description: "user not found"
+
+    delete: 
+      tags : ["User Operations"]
+      operationId: "unfollowUser"
+      description: |-
+        represents the operation of unfollowing a user
+      summary: unfollow a user 
+      
+      parameters: 
+        - name: username
+          in: query
+          required: true
+          description: user name to unfollow
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+      responses:
+        "200":
+          description: |-
+            User removed from followers successfully!
+        "404":
+          description: "user not found"
+
+#banna
+
+  /ban/{username}:
+    post: 
+      tags : ["User Operations"]
+      operationId: "banUser"
+      description: |-
+        Represents the operation of banning a user. 
+        The banned user will no longer be able to see 
+        your profile details
+
+      summary: ban a user
+      
+      parameters: 
+        - name: username
+          in: path
+          required: true
+          description: user name to ban
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+      responses:
+        "200":
+          description: User banned successfully
+
+        "404":
+          description: "user not found"
+
+
+    delete: 
+      tags : ["User Operations"]
+      operationId: "unbanUser"
+      description: |-
+        Represents the operation of removing the ban from a user. 
+        The user will now be able to see your profile info
+      summary: remove the ban
+      
+      parameters: 
+        - name: username
+          in: path
+          required: true
+          description: username
+          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+
+      responses:
+        "200":
+          description: Ban removed successfully
+    
+        "404":
+          description: "user not found"
+
+
+
+  /comment/{PhotoID}: 
+    post: 
+      tags: ["Photo Operations"]
+      operationId: "commentPhoto"
+      summary: Comment a photo
+      description: |-
+        Add a new comment on a user photo
+
+      parameters:
+        - name: idPhoto
+          in: path
+          required: true
+          description: Photo id to comment
+          schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+
+
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/comment" }
+
+      responses:
+        "200":
+          description: Comment added successfully    
+
+  /comment/{commentID}: 
+    delete:
+      tags : ["Photo Operations"]
+      operationId: "uncommentPhoto"
+      summary: delete a comment
+      description: |-
+        Delete a comment previously added on a user photo
+
+      parameters:
+        - name: idComm
+          in: path
+          required: true
+          description: Comment id to remove
+          schema: { $ref: "#/components/schemas/comment/properties/idComm" }
+
+
+
+      responses:
+        "204": { description: comment deleted successfully}
+
+#aggiungi like
+  /like/{PhotoID}: 
+    post: 
+      tags: ["Photo Operations"]
+      operationId: "likePhoto"
+      summary: Like a photo
+      description: Add a like ona photo gived as input
+
+      parameters:
+        - name: idPhoto
+          in: path
+          required: true
+          description: photo id to like
+          schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+
+
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Like" }
+
+      responses:
+        "200":
+          description: Like added successfully  
+
+#elimina like
+
+  /like/{idLike}: 
+    delete:
+      tags : ["Photo Operations"]
+      operationId: "unliketPhoto"
+      summary: remove like
+      description: remove a like previouslyadded on a photo
+
+      parameters:
+        - name: idLike
+          in: path
+          required: true
+          description: like id to remove
+          schema: { $ref: "#/components/schemas/Like/properties/idLike" }
+
+
+
+      responses:
+        "204": { description: Like removed successfully}
+
+
+
+components:
+  parameters:
+    UserID:
+      schema:
+        type: integer
+        example: 672878
+        readOnly: true
+      name: id
+      in: path
+      required: true
+      description: ID User
+
+
+
+
+  schemas:
+    Profile:
+      title: Profile
+      description: This object represent a profile
+      type: object
+      properties:
+        username:
+          description: user name
+          type: string
+          example: peppe_carnicella
+        id:
+          description: user identifier
+          type: integer
+          example: 1950329
+
+        Bio:
+          title: Bio
+          description: -|
+            This object summarizes the biography
+            of the user
+          type: object
+          properties:
+            age:
+              type: integer
+              example: 21
+            birthplace:
+              type: string
+              example: Rome
+            hobby:
+              type: string
+              example: singing 
+            city of residence:
+              type: string
+              example: London
+
+
+        followers:
+          description: user's followers list
+          type: array
+          items: { $ref: "#/components/schemas/follower"} 
+        followings:
+          description: user's followings list
+          type: array
+          items: { $ref: "#/components/schemas/following"} 
+
+        Photos:
+          description: user's photos list
+          type: array
+          items: { $ref: "#/components/schemas/Photo"} 
+        
+    Photo: 
+      title: Photo
+      type: object
+      properties:
+        PhotoID:
+          description: photo identifier
+          type: integer
+          example: 0010101
+        UserID:
+          description: user identifier
+          type: integer
+          example: 1950329
+        file:
+          description: file containing the photo
+          type: string
+          example: "foto.jpg"
+        comments:
+          description: list of other users' comments
+          type:  array
+          items: { $ref: "#/components/schemas/comment"} 
+        likes:
+          description: list of other users' likes
+          type: array
+          items: { $ref: "#/components/schemas/Like"} 
+
+    comment:
+      title: comment
+      description: this object represent a comment
+      type: object
+      
+      properties:
+        idComm:
+          type: integer
+          example: 2212
+        idPhoto:
+          type: integer
+          example: 152790
+        owner:
+          type: string
+          example: "Gianfranco"
+        comm: 
+          type: string
+          example: "Nice Photo"
+
+    follower:
+      title: follower
+      type: string  
+      example: peppe_carnicella
+
+    following:
+      title: following
+      type: string  
+      example: giacomo21
+
+    Like:
+      title: like
+      description: |-
+        this object represents a like and is made up of 
+        the id of the photo you want to like, 
+        the owner of the like and the id of the like.
+      type: object
+
+      properties:
+        idPhoto:
+         type: integer
+        owner: 
+          type: string
+        idLike:
+          type: string
+
