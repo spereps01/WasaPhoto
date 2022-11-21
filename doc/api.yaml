@@ -86,8 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items: { $ref: "#/components/schemas/Profile" }  
+                $ref: "#/components/schemas/Profile"
 
         "404":
           description: "User not found"
@@ -139,8 +138,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items: { $ref: "#/components/schemas/Profile/properties/Bio" } 
+                $ref: "#/components/schemas/Profile/properties/Bio"  
 
 #modificaBio
 
@@ -266,9 +264,8 @@ paths:
           description: user bio
           content:
             application/json:
-              schema:
-                type: array
-                items: { $ref: "#/components/schemas/Profile/properties/Bio" } 
+              schema: 
+                $ref: "#/components/schemas/Profile/properties/Bio" 
 
 
 
@@ -502,16 +499,22 @@ components:
         followers:
           description: user's followers list
           type: array
-          items: { $ref: "#/components/schemas/follower"} 
+          items: { $ref: "#/components/schemas/follower"}
+          minItems: 0 
+          maxItems: 5000
         followings:
           description: user's followings list
           type: array
           items: { $ref: "#/components/schemas/following"} 
+          minItems: 0 
+          maxItems: 5000
 
         Photos:
           description: user's photos list
           type: array
-          items: { $ref: "#/components/schemas/Photo"} 
+          items: { $ref: "#/components/schemas/Photo"}
+          minItems: 0 
+          maxItems: 5000 
         
     Photo: 
       title: Photo
@@ -532,11 +535,15 @@ components:
         comments:
           description: list of other users' comments
           type:  array
-          items: { $ref: "#/components/schemas/comment"} 
+          items: { $ref: "#/components/schemas/comment"}
+          minItems: 0 
+          maxItems: 5000 
         likes:
           description: list of other users' likes
           type: array
           items: { $ref: "#/components/schemas/Like"} 
+          minItems: 0 
+          maxItems: 5000
 
     comment:
       title: comment
