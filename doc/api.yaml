@@ -272,7 +272,7 @@ paths:
 
 
 
-  /follow/{username}: #/serach/{username}/follow
+  /follow/{username}:
     post: 
       tags : ["User Operations"]
       operationId: "followUser"
@@ -367,7 +367,7 @@ paths:
 
 
 
-  /comment/{PhotoID}: 
+  /photo/{PhotoID}/comment: 
     post: 
       tags: ["Photo Operations"]
       operationId: "commentPhoto"
@@ -413,7 +413,7 @@ paths:
         "204": { description: comment deleted successfully}
 
 #aggiungi like
-  /like/{PhotoID}: 
+  /photo/{PhotoID}/like: 
     post: 
       tags: ["Photo Operations"]
       operationId: "likePhoto"
