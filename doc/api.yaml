@@ -177,6 +177,13 @@ paths:
         upload a new photo with the properties specified in the
         requestBody
 
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: nome dell'utente
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
 
       requestBody:
         content:
@@ -200,7 +207,14 @@ paths:
         remove a photo from the personal profile
 
       parameters: 
-        - name: PhotoID
+
+        - name: id
+          in: path
+          required: true
+          description: nome dell'utente
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
+        - name: idPhoto
           in: path
           required: true
           description: id of the photo to delete
@@ -363,7 +377,7 @@ paths:
         Add a new comment on a user photo
 
       parameters:
-        - name: idPhoto
+        - name: PhotoID
           in: path
           required: true
           description: Photo id to comment
@@ -388,7 +402,7 @@ paths:
         Delete a comment previously added on a user photo
 
       parameters:
-        - name: idComm
+        - name: commentID
           in: path
           required: true
           description: Comment id to remove
@@ -408,7 +422,7 @@ paths:
       description: Add a like ona photo gived as input
 
       parameters:
-        - name: idPhoto
+        - name: PhotoID
           in: path
           required: true
           description: photo id to like
@@ -448,19 +462,6 @@ paths:
 
 
 components:
-  parameters:
-    UserID:
-      schema:
-        type: integer
-        example: 672878
-        readOnly: true
-      name: id
-      in: path
-      required: true
-      description: ID User
-
-
-
 
   schemas:
     Profile:
@@ -577,8 +578,11 @@ components:
       properties:
         idPhoto:
          type: integer
+         example: 1424234
         owner: 
           type: string
+          example: giacomo21
         idLike:
           type: string
+          example: 6483647
 
