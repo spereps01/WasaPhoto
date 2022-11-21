@@ -472,6 +472,8 @@ components:
           description: user name
           type: string
           example: peppe_carnicella
+          minLength: 3
+          maxLength: 16
         id:
           description: user identifier
           type: integer
@@ -490,12 +492,18 @@ components:
             birthplace:
               type: string
               example: Rome
+              minLength: 3
+              maxLength: 16
             hobby:
               type: string
               example: singing 
+              minLength: 3
+              maxLength: 16
             city of residence:
               type: string
               example: London
+              minLength: 3
+              maxLength: 16
 
 
         followers:
@@ -534,6 +542,10 @@ components:
           description: file containing the photo
           type: string
           example: "foto.jpg"
+          minLength: 3
+          maxLength: 16
+
+
         comments:
           description: list of other users' comments
           type:  array
@@ -562,19 +574,27 @@ components:
         owner:
           type: string
           example: "Gianfranco"
+          minLength: 3
+          maxLength: 16
         comm: 
           type: string
           example: "Nice Photo"
+          minLength: 3
+          maxLength: 16
 
     follower:
       title: follower
       type: string  
       example: peppe_carnicella
+      minLength: 3
+      maxLength: 16
 
     following:
       title: following
       type: string  
       example: giacomo21
+      minLength: 3
+      maxLength: 16
 
     Like:
       title: like
@@ -591,7 +611,12 @@ components:
         owner: 
           type: string
           example: giacomo21
+          minLength: 3
+          maxLength: 16
         idLike:
           type: string
           example: 6483647
+          minLength: 3
+          maxLength: 16
+          
 
