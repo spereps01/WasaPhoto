@@ -221,7 +221,12 @@ paths:
 
 
       responses:
-        "204": { description: photo removed successfully}
+        "204":
+          description: photo removed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Photo"
         
 #getMyStream
   /stream:
@@ -310,8 +315,8 @@ paths:
 
       responses:
         "200":
-          description: |-
-            User removed from followers successfully!
+          description: User removed from followers
+
         "404":
           description: "user not found"
 
@@ -337,7 +342,8 @@ paths:
 
       responses:
         "201":
-          description: User banned successfully
+          description: user banned successfully
+
 
         "404":
           description: "user not found"
@@ -360,7 +366,8 @@ paths:
 
       responses:
         "200":
-          description: Ban removed successfully
+          description: user ubanned successfully
+
     
         "404":
           description: "user not found"
@@ -410,7 +417,9 @@ paths:
 
 
       responses:
-        "204": { description: comment deleted successfully}
+        "204": 
+          description: comment deleted successfully
+
 
 #aggiungi like
   /photo/{PhotoID}/like: 
@@ -456,7 +465,9 @@ paths:
 
 
       responses:
-        "204": { description: Like removed successfully}
+        "204": 
+          description: like removed successfully
+
 
 
 
