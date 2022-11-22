@@ -498,19 +498,23 @@ components:
           type: object
           properties:
             age:
+              description: user age
               type: integer
               example: 21
             birthplace:
+              description: where the user is born
               type: string
               example: Rome
               minLength: 3
               maxLength: 16
             hobby:
+              description: user hobby
               type: string
               example: singing 
               minLength: 3
               maxLength: 16
             city of residence:
+              description: user's city of residence
               type: string
               example: London
               minLength: 3
@@ -538,6 +542,7 @@ components:
           maxItems: 5000 
         
     Photo: 
+      description: this object represent a photo
       title: Photo
       type: object
       properties:
@@ -577,23 +582,28 @@ components:
       
       properties:
         idComm:
+          description: comment identifier
           type: integer
           example: 2212
         idPhoto:
+          description: photo identifier commented
           type: integer
           example: 152790
         owner:
+          description: comment's owner
           type: string
           example: "Gianfranco"
           minLength: 3
           maxLength: 16
         comm: 
+          description: effective comment
           type: string
           example: "Nice Photo"
           minLength: 3
           maxLength: 16
 
     follower:
+      description: this string represent a follower
       title: follower
       type: string  
       example: peppe_carnicella
@@ -601,6 +611,7 @@ components:
       maxLength: 16
 
     following:
+      description: this string represent a following
       title: following
       type: string  
       example: giacomo21
@@ -617,14 +628,17 @@ components:
 
       properties:
         idPhoto:
-         type: integer
-         example: 1424234
+          description: photo identifier
+          type: integer
+          example: 1424234
         owner: 
+          description: like's owner
           type: string
           example: giacomo21
           minLength: 3
           maxLength: 16
         idLike:
+          description: like identifier
           type: integer
           example: 6483647
           minLength: 3
