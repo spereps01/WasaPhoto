@@ -442,7 +442,7 @@ paths:
   /like/{idLike}: 
     delete:
       tags : ["Photo Operations"]
-      operationId: "unliketPhoto"
+      operationId: "unlikePhoto"
       summary: remove like
       description: remove a like previouslyadded on a photo
 
