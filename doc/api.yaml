@@ -112,7 +112,7 @@ paths:
         - name: username
           in: path
           required: true
-          description: nome dell'utente
+          description: user name to change
           schema: { $ref: "#/components/schemas/Profile/properties/username" }
 
       requestBody:
@@ -269,7 +269,7 @@ paths:
 
 
 
-  /bio/{username}:
+  /users/{id}/bio:
     get:
       security:
         - bearerAuth: []
@@ -280,11 +280,11 @@ paths:
         Returns a brief biography of the user searched
 
       parameters: 
-        - name: username
+        - name: id
           in: path
           required: true
-          description: user name
-          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+          description: id of the user to follow
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       responses:
@@ -298,7 +298,7 @@ paths:
 
 
 
-  /follow/{username}:
+  /users/{id}/follow:
     put: 
       security:
         - bearerAuth: []
@@ -310,15 +310,19 @@ paths:
       summary: follow a user 
       
       parameters: 
-        - name: username
+        - name: id
           in: path
           required: true
-          description: user name to follow
-          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+          description: id of the user to follow
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
       responses:
         "200":
-          description: User followed successfully!
+          description: updated profile info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
         "404":
           description: "user not found"
 
@@ -332,11 +336,11 @@ paths:
       summary: unfollow a user 
       
       parameters: 
-        - name: username
-          in: query
+        - name: id
+          in: path
           required: true
-          description: user name to unfollow
-          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+          description: id of the user to unfollow
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
       responses:
         "200":
@@ -347,7 +351,7 @@ paths:
 
 #banna
 
-  /users/{username}/ban/{banId}:
+  /users/{userId}/ban/{banId}:
     put: 
       security:
         - bearerAuth: []
@@ -361,11 +365,11 @@ paths:
       summary: ban a user
       
       parameters: 
-        - name: username
+        - name: userId
           in: path
           required: true
-          description: user name who ban
-          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+          description: identifier of theuser who ban
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
         - name: banId
           in: path
           required: true
@@ -373,7 +377,11 @@ paths:
           schema: { $ref: "#/components/schemas/Profile/properties/id" }
       responses:
         "200":
-          description: user banned successfully
+          description: updated profile info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
 
 
         "404":
@@ -391,18 +399,18 @@ paths:
       summary: remove the ban
       
       parameters: 
-        - name: username
+        - name: userId
           in: path
           required: true
-          description: username
-          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+          description: identifier of the user who wants to remove the ban
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
         - name: banId
           in: path
           required: true
           description: user banned
           schema: { $ref: "#/components/schemas/Profile/properties/id" }
       responses:
-        "200":
+        "204":
           description: user ubanned successfully
 
     
@@ -441,7 +449,11 @@ paths:
 
       responses:
         "200":
-          description: Comment added successfully    
+          description: updated photo info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Photo"    
 
 
     delete:
@@ -500,7 +512,11 @@ paths:
 
       responses:
         "200":
-          description: Like added successfully  
+          description: updated photo info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Photo"
 
 #elimina like
 
@@ -605,6 +621,12 @@ components:
           items: { $ref: "#/components/schemas/following"} 
           minItems: 0 
           maxItems: 5000
+        banned:
+          description: user's banned list
+          type: array
+          items: { $ref: "#/components/schemas/bUser"} 
+          minItems: 0 
+          maxItems: 5000         
 
         Photos:
           description: user's photos list
@@ -694,7 +716,14 @@ components:
       pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
       minLength: 3
       maxLength: 16
-
+    bUser:
+      description: this string represent a banned user
+      title: following
+      type: string  
+      example: giacomo21
+      pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+      minLength: 3
+      maxLength: 16
     Like:
       title: like
       description: |-
