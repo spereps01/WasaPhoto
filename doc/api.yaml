@@ -294,7 +294,7 @@ paths:
 
 
   /follow/{username}:
-    post: 
+    put: 
       security:
         - bearerAuth: []
       tags : ["User Operations"]
@@ -312,7 +312,7 @@ paths:
           schema: { $ref: "#/components/schemas/Profile/properties/username" }
 
       responses:
-        "201":
+        "200":
           description: User followed successfully!
         "404":
           description: "user not found"
@@ -342,8 +342,8 @@ paths:
 
 #banna
 
-  /ban/{username}:
-    post: 
+  /users/{username}/ban/{banId}:
+    put: 
       security:
         - bearerAuth: []
       tags : ["User Operations"]
@@ -359,11 +359,15 @@ paths:
         - name: username
           in: path
           required: true
-          description: user name to ban
+          description: user name who ban
           schema: { $ref: "#/components/schemas/Profile/properties/username" }
-
+        - name: banId
+          in: path
+          required: true
+          description: user banned
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
       responses:
-        "201":
+        "200":
           description: user banned successfully
 
 
@@ -387,7 +391,11 @@ paths:
           required: true
           description: username
           schema: { $ref: "#/components/schemas/Profile/properties/username" }
-
+        - name: banId
+          in: path
+          required: true
+          description: user banned
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
       responses:
         "200":
           description: user ubanned successfully
@@ -398,8 +406,8 @@ paths:
 
 
 
-  /photo/{PhotoID}/comment: 
-    post: 
+  /photo/{PhotoID}/comment/{id}: 
+    put: 
       security:
         - bearerAuth: []
       tags: ["Photo Operations"]
@@ -414,6 +422,11 @@ paths:
           required: true
           description: Photo id to comment
           schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+        - name: id
+          in: path
+          required: true
+          description: user id 
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       requestBody:
@@ -422,10 +435,10 @@ paths:
             schema: { $ref: "#/components/schemas/comment" }
 
       responses:
-        "201":
+        "200":
           description: Comment added successfully    
 
-  /comment/{commentID}: 
+
     delete:
       security:
         - bearerAuth: []
@@ -441,7 +454,11 @@ paths:
           required: true
           description: Comment id to remove
           schema: { $ref: "#/components/schemas/comment/properties/idComm" }
-
+        - name: id
+          in: path
+          required: true
+          description: user id 
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       responses:
@@ -450,8 +467,8 @@ paths:
 
 
 #aggiungi like
-  /photo/{PhotoID}/like: 
-    post: 
+  /photo/{PhotoID}/like/{id}: 
+    put: 
       security:
         - bearerAuth: []
       tags: ["Photo Operations"]
@@ -465,7 +482,11 @@ paths:
           required: true
           description: photo id to like
           schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
-
+        - name: id
+          in: path
+          required: true
+          description: user id 
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
       requestBody:
         content:
@@ -473,12 +494,12 @@ paths:
             schema: { $ref: "#/components/schemas/Like" }
 
       responses:
-        "201":
+        "200":
           description: Like added successfully  
 
 #elimina like
 
-  /like/{idLike}: 
+
     delete:
       security:
         - bearerAuth: []
@@ -493,7 +514,11 @@ paths:
           required: true
           description: like id to remove
           schema: { $ref: "#/components/schemas/Like/properties/idLike" }
-
+        - name: id
+          in: path
+          required: true
+          description: user id 
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       responses:
