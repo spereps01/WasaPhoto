@@ -177,7 +177,7 @@ paths:
 
 
 
-  /profile/{id}/photo:
+  /photo:
     post:
       security:
        - bearerAuth: []
@@ -189,11 +189,16 @@ paths:
         requestBody
 
       parameters:
-        - name: id
-          in: path
+        - name: photo
+          in: query
           required: true
-          description: nome dell'utente
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+          description: file with the photo
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+
 
 
       requestBody:
