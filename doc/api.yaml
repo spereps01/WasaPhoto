@@ -681,7 +681,6 @@ components:
           description: like identifier
           type: integer
           example: 6483647
-          minLength: 3
-          maxLength: 16
+
           
 
