@@ -21,11 +21,13 @@ tags:
 - name: Search
   description: "Search section"
 
-
+#CAMBIA  PATH DELETE
 
 paths:
   /session:
     post:
+      security:
+        - bearerAuth: []
       tags: ["Login"]
       summary: Logs in the user
       description: |-
@@ -66,6 +68,8 @@ paths:
 
   /search/{username}: 
     get:
+      security:
+        - bearerAuth: []
       tags: ["Search"]
       operationId: getUserProfile
       summary: returns info profile
@@ -94,6 +98,8 @@ paths:
   /profile/{username}:
 
     put:
+      security:
+        - bearerAuth: []
       tags: ["Profile"]
       operationId: setMyUserName
       summary: change username
@@ -126,6 +132,8 @@ paths:
 #ritornabio
   /profile/bio:
     get:
+      security:
+        - bearerAuth: []
       tags: ["Profile"]
       operationId: "getMyBio"
       summary: returns the user bio
@@ -143,6 +151,8 @@ paths:
 #modificaBio
 
     put:
+      security:
+       - bearerAuth: []
       tags: ["Profile"]
       operationId: setMyBio
       summary: change the bio
@@ -168,6 +178,8 @@ paths:
 
   /profile/{id}/photo:
     post:
+      security:
+       - bearerAuth: []
       tags : ["Profile"]
       operationId: "uploadPhoto"
       summary: upload an image
@@ -198,6 +210,8 @@ paths:
 
   /profile/{id}/photo/{idPhoto}:
     delete:
+      security:
+        - bearerAuth: []
       tags : ["Profile"]
       operationId: "deletePhoto"
       summary: remove a photo
@@ -231,6 +245,8 @@ paths:
 #getMyStream
   /stream:
     get:
+      security:
+       - bearerAuth: []
       tags: ["Stream"]
       operationId: getMyStream
       summary: returns the stream
@@ -252,6 +268,8 @@ paths:
 
   /bio/{username}:
     get:
+      security:
+        - bearerAuth: []
       tags: ["User Operations"]
       operationId: "getUserBio"
       summary: returns the user bio
@@ -279,6 +297,8 @@ paths:
 
   /follow/{username}:
     post: 
+      security:
+        - bearerAuth: []
       tags : ["User Operations"]
       operationId: "followUser"
       description: |-
@@ -300,6 +320,8 @@ paths:
           description: "user not found"
 
     delete: 
+      security:
+        - bearerAuth: []
       tags : ["User Operations"]
       operationId: "unfollowUser"
       description: |-
@@ -324,6 +346,8 @@ paths:
 
   /ban/{username}:
     post: 
+      security:
+        - bearerAuth: []
       tags : ["User Operations"]
       operationId: "banUser"
       description: |-
@@ -349,7 +373,9 @@ paths:
           description: "user not found"
 
 
-    delete: 
+    delete:
+      security:
+        - bearerAuth: [] 
       tags : ["User Operations"]
       operationId: "unbanUser"
       description: |-
@@ -376,6 +402,8 @@ paths:
 
   /photo/{PhotoID}/comment: 
     post: 
+      security:
+        - bearerAuth: []
       tags: ["Photo Operations"]
       operationId: "commentPhoto"
       summary: Comment a photo
@@ -401,6 +429,8 @@ paths:
 
   /comment/{commentID}: 
     delete:
+      security:
+        - bearerAuth: []
       tags : ["Photo Operations"]
       operationId: "uncommentPhoto"
       summary: delete a comment
@@ -424,6 +454,8 @@ paths:
 #aggiungi like
   /photo/{PhotoID}/like: 
     post: 
+      security:
+        - bearerAuth: []
       tags: ["Photo Operations"]
       operationId: "likePhoto"
       summary: Like a photo
@@ -450,6 +482,8 @@ paths:
 
   /like/{idLike}: 
     delete:
+      security:
+        - bearerAuth: []
       tags : ["Photo Operations"]
       operationId: "unlikePhoto"
       summary: remove like
@@ -472,6 +506,12 @@ paths:
 
 
 components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+
+
 
   schemas:
     Profile:
