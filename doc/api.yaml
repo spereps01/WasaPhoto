@@ -339,10 +339,13 @@ paths:
       summary: unfollow a user 
       
 
-
       responses:
         "200":
-          description: User removed from followers
+          description: updated profile info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
 
         "404":
           description: "user not found"
