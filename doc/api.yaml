@@ -61,7 +61,8 @@ paths:
                     type: string
                     example: "abcdef012345"
                     pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
-
+                    minLength: 3
+                    maxLength: 16
 
 
 
@@ -299,6 +300,13 @@ paths:
 
 
   /users/{id}/follow:
+    parameters: 
+      - name: id
+        in: path
+        required: true
+        description: id of the user to follow
+        schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
     put: 
       security:
         - bearerAuth: []
@@ -309,12 +317,7 @@ paths:
         giving the username as input
       summary: follow a user 
       
-      parameters: 
-        - name: id
-          in: path
-          required: true
-          description: id of the user to follow
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
 
       responses:
         "200":
@@ -335,12 +338,7 @@ paths:
         represents the operation of unfollowing a user
       summary: unfollow a user 
       
-      parameters: 
-        - name: id
-          in: path
-          required: true
-          description: id of the user to unfollow
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
 
       responses:
         "200":
@@ -352,6 +350,17 @@ paths:
 #banna
 
   /users/{userId}/ban/{banId}:
+    parameters: 
+      - name: userId
+        in: path
+        required: true
+        description: identifier of theuser who ban
+        schema: { $ref: "#/components/schemas/Profile/properties/id" }
+      - name: banId
+        in: path
+        required: true
+        description: user banned
+        schema: { $ref: "#/components/schemas/Profile/properties/id" }
     put: 
       security:
         - bearerAuth: []
@@ -364,17 +373,7 @@ paths:
 
       summary: ban a user
       
-      parameters: 
-        - name: userId
-          in: path
-          required: true
-          description: identifier of theuser who ban
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
-        - name: banId
-          in: path
-          required: true
-          description: user banned
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+      
       responses:
         "200":
           description: updated profile info
@@ -398,17 +397,7 @@ paths:
         The user will now be able to see your profile info
       summary: remove the ban
       
-      parameters: 
-        - name: userId
-          in: path
-          required: true
-          description: identifier of the user who wants to remove the ban
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
-        - name: banId
-          in: path
-          required: true
-          description: user banned
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
       responses:
         "204":
           description: user ubanned successfully
@@ -420,6 +409,17 @@ paths:
 
 
   /photo/{PhotoID}/comment/{id}: 
+    parameters:
+      - name: PhotoID
+        in: path
+        required: true
+        description: Photo id to comment
+        schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+      - name: id
+        in: path
+        required: true
+        description: user id
+        schema: { $ref: "#/components/schemas/Profile/properties/id" }
     put: 
       security:
         - bearerAuth: []
@@ -428,18 +428,6 @@ paths:
       summary: Comment a photo
       description: |-
         Add a new comment on a user photo
-
-      parameters:
-        - name: PhotoID
-          in: path
-          required: true
-          description: Photo id to comment
-          schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
-        - name: id
-          in: path
-          required: true
-          description: user id 
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       requestBody:
@@ -465,17 +453,7 @@ paths:
       description: |-
         Delete a comment previously added on a user photo
 
-      parameters:
-        - name: commentID
-          in: path
-          required: true
-          description: Comment id to remove
-          schema: { $ref: "#/components/schemas/comment/properties/idComm" }
-        - name: id
-          in: path
-          required: true
-          description: user id 
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
 
 
       responses:
@@ -485,6 +463,17 @@ paths:
 
 #aggiungi like
   /photo/{PhotoID}/like/{id}: 
+    parameters:
+      - name: PhotoID
+        in: path
+        required: true
+        description: photo id to like
+        schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+      - name: id
+        in: path
+        required: true
+        description: user id 
+        schema: { $ref: "#/components/schemas/Profile/properties/id" }
     put: 
       security:
         - bearerAuth: []
@@ -493,17 +482,7 @@ paths:
       summary: Like a photo
       description: Add a like ona photo gived as input
 
-      parameters:
-        - name: PhotoID
-          in: path
-          required: true
-          description: photo id to like
-          schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
-        - name: id
-          in: path
-          required: true
-          description: user id 
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
+
 
       requestBody:
         content:
@@ -529,17 +508,6 @@ paths:
       summary: remove like
       description: remove a like previouslyadded on a photo
 
-      parameters:
-        - name: idLike
-          in: path
-          required: true
-          description: like id to remove
-          schema: { $ref: "#/components/schemas/Like/properties/idLike" }
-        - name: id
-          in: path
-          required: true
-          description: user id 
-          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       responses:
@@ -676,10 +644,6 @@ components:
       type: object
       
       properties:
-        idComm:
-          description: comment identifier
-          type: integer
-          example: 2212
         idPhoto:
           description: photo identifier commented
           type: integer
@@ -745,10 +709,7 @@ components:
           
           minLength: 3
           maxLength: 16
-        idLike:
-          description: like identifier
-          type: integer
-          example: 6483647
+
 
           
 
