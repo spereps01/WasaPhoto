@@ -483,12 +483,6 @@ paths:
       description: Add a like ona photo gived as input
 
 
-
-      requestBody:
-        content:
-          application/json:
-            schema: { $ref: "#/components/schemas/Like" }
-
       responses:
         "200":
           description: updated photo info
