@@ -571,19 +571,19 @@ components:
         followers:
           description: user's followers list
           type: array
-          items: { $ref: "#/components/schemas/follower"}
+          items: { $ref: "#/components/schemas/Profile/properties/username"}
           minItems: 0 
           maxItems: 5000
         followings:
           description: user's followings list
           type: array
-          items: { $ref: "#/components/schemas/following"} 
+          items: { $ref: "#/components/schemas/Profile/properties/username"} 
           minItems: 0 
           maxItems: 5000
         banned:
           description: user's banned list
           type: array
-          items: { $ref: "#/components/schemas/bUser"} 
+          items: { $ref: "#/components/schemas/Profile/properties/username"} 
           minItems: 0 
           maxItems: 5000         
 
@@ -654,31 +654,7 @@ components:
           minLength: 3
           maxLength: 16
 
-    follower:
-      description: this string represent a follower
-      title: follower
-      type: string  
-      example: peppecarnicella
-      pattern:  "^.*?$"
-      minLength: 3
-      maxLength: 16
 
-    following:
-      description: this string represent a following
-      title: following
-      type: string  
-      example: giacomo
-      pattern:  "^.*?$"
-      minLength: 3
-      maxLength: 16
-    bUser:
-      description: this string represent a banned user
-      title: following
-      type: string  
-      example: giacomo
-      pattern:  "^.*?$"
-      minLength: 3
-      maxLength: 16
     Like:
       title: like
       description: |-
