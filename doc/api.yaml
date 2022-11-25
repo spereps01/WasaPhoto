@@ -45,7 +45,7 @@ paths:
                 name:
                   type: string
                   example: Maria
-                  pattern: "ˆ.*?$"
+                  pattern: "^.*?$"
                   minLength: 3
                   maxLength: 16
         required: true
@@ -55,14 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  identifier:
-                    type: string
-                    example: "abcdef012345"
-                    pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
-                    minLength: 3
-                    maxLength: 16
+                $ref: "#/components/schemas/Profile/properties/id"
 
 
 
@@ -199,7 +192,8 @@ paths:
               schema:
                 type: string
                 format: binary
-
+                minLength: 0
+                maxLength: 1223
 
 
       requestBody:
@@ -403,11 +397,7 @@ paths:
 
       responses:
         "204":
-          description: updated profile info
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Profile"
+          description: user unbanned successfully
 
     
         "404":
@@ -535,8 +525,8 @@ components:
         username:
           description: user name
           type: string
-          example: peppe_carnicella
-          pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+          example: peppecarnicella
+          pattern: "^.*?$"
           minLength: 3
           maxLength: 16
         id:
@@ -558,7 +548,7 @@ components:
             birthplace:
               description: where the user is born
               type: string
-              pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+              pattern:  "^.*?$"
               example: Rome
               minLength: 3
               maxLength: 16
@@ -566,14 +556,14 @@ components:
               description: user hobby
               type: string
               example: singing 
-              pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+              pattern:  "^.*?$"
               minLength: 3
               maxLength: 16
             city of residence:
               description: user's city of residence
               type: string
               example: London
-              pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+              pattern:  "^.*?$"
               minLength: 3
               maxLength: 16
 
@@ -620,8 +610,8 @@ components:
         file:
           description: file containing the photo
           type: string
-          example: "foto.jpg"
-          pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+          example: foto.jpg
+          pattern:  "^.*?$"
           minLength: 3
           maxLength: 16
 
@@ -652,15 +642,15 @@ components:
         owner:
           description: comment's owner
           type: string
-          example: "Gianfranco"
-          pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+          example: Gianfranco
+          pattern:  "^.*?$"
           minLength: 3
           maxLength: 16
         comm: 
           description: effective comment
           type: string
-          example: "Nice Photo"
-          pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+          example: Nice Photo
+          pattern:  "^.*?$"
           minLength: 3
           maxLength: 16
 
@@ -668,8 +658,8 @@ components:
       description: this string represent a follower
       title: follower
       type: string  
-      example: peppe_carnicella
-      pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+      example: peppecarnicella
+      pattern:  "^.*?$"
       minLength: 3
       maxLength: 16
 
@@ -677,16 +667,16 @@ components:
       description: this string represent a following
       title: following
       type: string  
-      example: giacomo21
-      pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+      example: giacomo
+      pattern:  "^.*?$"
       minLength: 3
       maxLength: 16
     bUser:
       description: this string represent a banned user
       title: following
       type: string  
-      example: giacomo21
-      pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+      example: giacomo
+      pattern:  "^.*?$"
       minLength: 3
       maxLength: 16
     Like:
@@ -705,8 +695,8 @@ components:
         owner: 
           description: like's owner
           type: string
-          example: giacomo21
-          pattern:  "^[A-Za-z][A-Za-z0-9_]{7,29}$"
+          example: giacomo
+          pattern:  "^.*?$"
           
           minLength: 3
           maxLength: 16
