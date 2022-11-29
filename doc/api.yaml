@@ -293,8 +293,14 @@ paths:
 
 
 
-  /users/{id}/follow:
+  /users/{p_id}/follow/{id}:
     parameters: 
+      - name: p_id
+        in: path
+        required: true
+        description: personal id
+        schema: { $ref: "#/components/schemas/Profile/properties/id" }
+    
       - name: id
         in: path
         required: true
