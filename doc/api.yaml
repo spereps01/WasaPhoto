@@ -421,8 +421,8 @@ paths:
       - name: id
         in: path
         required: true
-        description: user id
-        schema: { $ref: "#/components/schemas/Profile/properties/id" }
+        description: comment id
+        schema: { $ref: "#/components/schemas/comment/properties/id_comment" }
     put: 
       security:
         - bearerAuth: []
@@ -659,6 +659,12 @@ components:
           pattern:  "^.*?$"
           minLength: 3
           maxLength: 16
+        id_comment:
+          description: comment identifier commented
+          type: integer
+          example: 152790
+
+
 
 
     Like:
