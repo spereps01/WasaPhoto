@@ -470,6 +470,7 @@ paths:
           content:
             text/plain:
               schema:
+                description: robe belle
                 type: string
                 example: like removed successfully
                 pattern: "^.*?$"
