@@ -90,7 +90,7 @@ paths:
         "404":
           description: "User not found"
 
-  /profile/{username}:
+  /profile/{id}:
 
     put:
       security:
@@ -103,14 +103,13 @@ paths:
         with the username specified in the body of the request.
 
       parameters: 
-        - name: username
+        - name: id
           in: path
           required: true
-          description: user name to change
-          schema: { $ref: "#/components/schemas/Profile/properties/username" }
+          description: id to change
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
       requestBody:
-        description: username
         content:
           application/json:
             schema: { $ref: "#/components/schemas/Profile/properties/username" }
@@ -155,7 +154,6 @@ paths:
 
 
       requestBody:
-        description: Photo
         content:
           application/json:
             schema: { $ref: "#/components/schemas/Photo" }
@@ -197,6 +195,12 @@ paths:
       responses:
         "204":
           description: photo removed successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: photo removed successfully
+                pattern: "^.*?$"
 
         
 #getMyStream
@@ -253,11 +257,13 @@ paths:
 
       responses:
         "200":
-          description: updated profile info
+          description: user followed
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: "#/components/schemas/Profile"
+                type: string
+                example: user followed successfully
+                pattern: "^.*?$"
         "404":
           description: "user not found"
 
@@ -273,11 +279,13 @@ paths:
 
       responses:
         "200":
-          description: updated profile info
+          description: user unfollowed
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: "#/components/schemas/Profile"
+                type: string
+                example: user unfollowed successfully
+                pattern: "^.*?$"
 
         "404":
           description: "user not found"
@@ -311,11 +319,13 @@ paths:
       
       responses:
         "200":
-          description: updated profile info
+          description: user banned
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: "#/components/schemas/Profile"
+                type: string
+                example: user banned successfully
+                pattern: "^.*?$"
 
 
         "404":
@@ -335,7 +345,14 @@ paths:
 
       responses:
         "204":
-          description: user unbanned successfully
+          description: user unbanned
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: user unbanned successfully
+                pattern: "^.*?$"
+
 
     
         "404":
@@ -366,7 +383,6 @@ paths:
 
 
       requestBody:
-        description: comment
         content:
           application/json:
             schema: { $ref: "#/components/schemas/comment" }
@@ -394,7 +410,13 @@ paths:
 
       responses:
         "204": 
-          description: comment deleted successfully
+          description: comment removed
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: comment removed successfully
+                pattern: "^.*?$" 
 
 
 #aggiungi like
@@ -421,11 +443,13 @@ paths:
 
       responses:
         "200":
-          description: updated photo info
+          description: like added
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: "#/components/schemas/Photo"
+                type: string
+                example: like added successfully
+                pattern: "^.*?$"
 
 #elimina like
 
@@ -442,7 +466,13 @@ paths:
 
       responses:
         "204": 
-          description: like removed successfully
+          description: like removed
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: like removed successfully
+                pattern: "^.*?$"
 
 
 
