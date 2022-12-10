@@ -447,6 +447,7 @@ paths:
           content:
             text/plain:
               schema:
+                description: like added
                 type: string
                 example: like added successfully
                 pattern: "^.*?$"
@@ -470,7 +471,7 @@ paths:
           content:
             text/plain:
               schema:
-                description: robe belle
+                description: like removed
                 type: string
                 example: like removed successfully
                 pattern: "^.*?$"
