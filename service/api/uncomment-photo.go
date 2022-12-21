@@ -20,7 +20,7 @@ func (rt *_router) uncommentPhoto(w http.ResponseWriter, r *http.Request, ps htt
 
 	dbuser, err := rt.db.DeleteComment(int(idc))
 	if err != nil {
-		ctx.Logger.WithError(err).WithField("idc", idc).Error("can't delete the photo")
+		ctx.Logger.WithError(err).WithField("idc", idc).Error("can't delete the comment")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
