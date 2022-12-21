@@ -114,39 +114,42 @@ func New(db *sql.DB) (AppDatabase, error) {
 	if errors.Is(err, sql.ErrNoRows) {
 
 		sqlStmt := `
-			CREATE TABLE IF NOT EXISTS users (
+		CREATE TABLE IF NOT EXISTS users (
 			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 			username TEXT,
-			UNIQUE (username)
-			UNIQUE (id));  
-			
-
-			CREATE TABLE IF NOT EXISTS 
-			photos (id_photo INTEGER PRIMARY KEY AUTOINCREMENT,
-			user_id INTEGER REFERENCES users(id),
+			UNIQUE (username),
+			UNIQUE (id)
+		);  
+		
+		CREATE TABLE IF NOT EXISTS photos (
+			id_photo INTEGER PRIMARY KEY AUTOINCREMENT,
+			user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 			data TEXT,
-			photo BLOB);
-			
-			
-			CREATE TABLE IF NOT EXISTS 
-			comments (comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
-			id_ph INTEGER REFERENCES photos(id_photo),
+			photo BLOB
+		);
+		
+		CREATE TABLE IF NOT EXISTS comments (
+			comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			id_ph INTEGER REFERENCES photos(id_photo) ON DELETE CASCADE ON UPDATE CASCADE,
 			comm TEXT,
-			owner_id INTEGER REFERENCES users(id));
-			
-
-			CREATE TABLE IF NOT EXISTS 
-			likes (id_photo INTEGER REFERENCES photos(id_photo),
-			owner_id INTEGER REFERENCES users(id),
-			UNIQUE (id_photo, owner_id));
-
-			CREATE TABLE IF NOT EXISTS
-			follow(id1 INTEGER REFERENCES users(id),
-			id2 INTEGER REFERENCES users(id));
-
-			CREATE TABLE IF NOT EXISTS
-			banned(idu INTEGER REFERENCES users(id),
-			idp INTEGER REFERENCES users(id));
+			owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+		);
+		
+		CREATE TABLE IF NOT EXISTS likes (
+			id_photo INTEGER REFERENCES photos(id_photo) ON DELETE CASCADE ON UPDATE CASCADE,
+			owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+			UNIQUE (id_photo, owner_id)
+		);
+		
+		CREATE TABLE IF NOT EXISTS follow (
+			id1 INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+			id2 INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+		);
+		
+		CREATE TABLE IF NOT EXISTS banned (
+			idu INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+			idp INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+		);
 			`
 		_, err = db.Exec(sqlStmt)
 		if err != nil {
