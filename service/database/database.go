@@ -58,15 +58,6 @@ type Like struct {
 	Id_photo uint64
 	Owner_id uint64
 }
-type Follower struct {
-	id1 uint64
-	id2 uint64
-}
-
-type Banned struct {
-	idu uint64
-	idb uint64
-}
 
 type Profile struct {
 	Id       uint64
