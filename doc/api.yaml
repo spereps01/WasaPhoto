@@ -193,7 +193,7 @@ paths:
 
 
       responses:
-        "200":
+        "204":
           description: photo removed successfully
           content:
             text/plain:
@@ -344,7 +344,7 @@ paths:
       
 
       responses:
-        "200":
+        "204":
           description: user unbanned
           content:
             text/plain:
@@ -389,11 +389,11 @@ paths:
 
       responses:
         "200":
-          description: updated photo info
+          description: comment
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Photo"    
+                $ref: "#/components/schemas/comment"    
 
 
     delete:
@@ -409,7 +409,7 @@ paths:
 
 
       responses:
-        "200": 
+        "204": 
           description: comment removed
           content:
             text/plain:
@@ -447,7 +447,6 @@ paths:
           content:
             text/plain:
               schema:
-                description: like added
                 type: string
                 example: like added successfully
                 pattern: "^.*?$"
@@ -466,12 +465,11 @@ paths:
 
 
       responses:
-        "200": 
+        "204": 
           description: like removed
           content:
             text/plain:
               schema:
-                description: like removed
                 type: string
                 example: like removed successfully
                 pattern: "^.*?$"
