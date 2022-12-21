@@ -19,7 +19,7 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 	}
 	for rows.Next() {
 		p := Photo{}
-		err = rows.Scan(&p.Id_photo, &p.User_id, &p.Data, p.Photo)
+		err = rows.Scan(&p.Id_photo, &p.User_id, &p.Data, &p.Photo)
 		Photos = append(Photos, p)
 	}
 	return Photos, err

@@ -26,7 +26,7 @@ type WebAPIConfiguration struct {
 	}
 	Debug bool
 	DB    struct {
-		Filename string `conf:"default:/Users/carni/OneDrive/Desktop/WASA/GO/wasa-fountains/datab.db"`
+		Filename string `conf:"default:/Users/carni/OneDrive/Desktop/WASA/API/WasaPhoto/datab.db"`
 	}
 }
 

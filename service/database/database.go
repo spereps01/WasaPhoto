@@ -70,7 +70,7 @@ type Banned struct {
 
 type Profile struct {
 	Id       uint64
-	Username uint64
+	Username string
 	Photos   []Photo
 }
 
