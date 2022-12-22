@@ -93,6 +93,8 @@ type AppDatabase interface {
 
 	GetUserProfile(username string) ([]Profile, error)
 
+	GetMyStream(id int) ([]Photo, error)
+
 	// Ping checks whether the database is available or not (in that case, an error will be returned)
 	Ping() error
 }

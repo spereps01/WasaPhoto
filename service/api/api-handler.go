@@ -26,7 +26,7 @@ func (rt *_router) Handler() http.Handler {
 	rt.router.DELETE("/b_users/:idu/ban/:idb", rt.wrap(rt.unbanUser)) // OK
 
 	rt.router.GET("/search/:username", rt.wrap(rt.getUserProfile)) // OK
-	// rt.router.GET("/stream", rt.wrap(rt.getMyStream))
+	rt.router.GET("/stream", rt.wrap(rt.getMyStream))              //
 
 	// Special routes
 	rt.router.GET("/liveness", rt.liveness)
