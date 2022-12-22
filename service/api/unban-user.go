@@ -25,8 +25,8 @@ func (rt *_router) unbanUser(w http.ResponseWriter, r *http.Request, ps httprout
 
 	dbuser, err := rt.db.UnbanUser(int(idu), int(idb))
 	if err != nil {
-		ctx.Logger.WithError(err).WithField("idu", idu).Error("can't delete the follower")
-		ctx.Logger.WithError(err).WithField("idb", idb).Error("can't delete the follower")
+		ctx.Logger.WithError(err).WithField("idu", idu).Error("can't unban the user")
+		ctx.Logger.WithError(err).WithField("idb", idb).Error("can't unban the user")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

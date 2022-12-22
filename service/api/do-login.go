@@ -24,7 +24,7 @@ func (rt *_router) doLogin(w http.ResponseWriter, r *http.Request, ps httprouter
 	if err != nil {
 		// In this case, we have an error on our side. Log the error (so we can be notified) and send a 500 to the user
 		// Note: we are using the "logger" inside the "ctx" (context) because the scope of this issue is the request.
-		ctx.Logger.WithError(err).Error("can't create the fountain")
+		ctx.Logger.WithError(err).Error("can't do the log in")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

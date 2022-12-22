@@ -30,8 +30,8 @@ func (rt *_router) likePhoto(w http.ResponseWriter, r *http.Request, ps httprout
 		// Note: we are using the "logger" inside the "ctx" (context) because the scope of this issue is the request.
 		// Note (2): we are adding the error and an additional field (`id`) to the log entry, so that we will receive
 		// the identifier of the fountain that triggered the error.
-		ctx.Logger.WithError(err).WithField("idp", idp).Error("can't update the fountain")
-		ctx.Logger.WithError(err).WithField("ido", ido).Error("can't update the fountain")
+		ctx.Logger.WithError(err).WithField("idp", idp).Error("can't like the photo")
+		ctx.Logger.WithError(err).WithField("ido", ido).Error("can't like the photo")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

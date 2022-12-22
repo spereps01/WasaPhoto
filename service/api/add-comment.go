@@ -10,21 +10,20 @@ import (
 )
 
 func (rt *_router) commentPhoto(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {
-	// The Fountain ID in the path is a 64-bit unsigned integer. Let's parse it.
+
 	idp, err := strconv.ParseUint(ps.ByName("idp"), 10, 64)
 	if err != nil {
-		// The value was not uint64, reject the action indicating an error on the client side.
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	idc, err := strconv.ParseUint(ps.ByName("idc"), 10, 64)
 	if err != nil {
-		// The value was not uint64, reject the action indicating an error on the client side.
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	// Read the new content for the fountain from the request body.
 	var comment Comment
 	err = json.NewDecoder(r.Body).Decode(&comment)
 	if err != nil {
@@ -42,8 +41,8 @@ func (rt *_router) commentPhoto(w http.ResponseWriter, r *http.Request, ps httpr
 		// Note: we are using the "logger" inside the "ctx" (context) because the scope of this issue is the request.
 		// Note (2): we are adding the error and an additional field (`id`) to the log entry, so that we will receive
 		// the identifier of the fountain that triggered the error.
-		ctx.Logger.WithError(err).WithField("idp", idp).Error("can't update the fountain")
-		ctx.Logger.WithError(err).WithField("idc", idc).Error("can't update the fountain")
+		ctx.Logger.WithError(err).WithField("idp", idp).Error("can't add the comment")
+		ctx.Logger.WithError(err).WithField("idc", idc).Error("can't add the comment")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

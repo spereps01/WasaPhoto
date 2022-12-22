@@ -38,8 +38,8 @@ func (rt *_router) banUser(w http.ResponseWriter, r *http.Request, ps httprouter
 	rt.db.UnfollowUser(int(idb), int(idu))
 	rt.db.UnfollowUser(int(idu), int(idb))
 	if err != nil {
-		ctx.Logger.WithError(err).WithField("idb", idb).Error("can't update the fountain")
-		ctx.Logger.WithError(err).WithField("idu", idu).Error("can't update the fountain")
+		ctx.Logger.WithError(err).WithField("idb", idb).Error("can't ban the user")
+		ctx.Logger.WithError(err).WithField("idu", idu).Error("can't ban the user")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

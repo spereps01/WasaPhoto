@@ -23,21 +23,11 @@ func (rt *_router) followUser(w http.ResponseWriter, r *http.Request, ps httprou
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	// Read the new content for the fountain from the request body.
-
-	/*	err := json.NewDecoder(r.Body).Decode(&user)
-		if err != nil {
-			// The body was not a parseable JSON, reject it
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-	*/
-	// Update the fountain in the database.
 
 	dbuser, err := rt.db.FollowUser(int(id1), int(id2))
 	if err != nil {
-		ctx.Logger.WithError(err).WithField("id1", id1).Error("can't update the fountain")
-		ctx.Logger.WithError(err).WithField("id2", id2).Error("can't update the fountain")
+		ctx.Logger.WithError(err).WithField("id1", id1).Error("can't follow the useer")
+		ctx.Logger.WithError(err).WithField("id2", id2).Error("can't follow the useer")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
