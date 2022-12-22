@@ -21,5 +21,9 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 		rows.Scan(&p.Id_photo, &p.User_id, &p.Data, &p.Photo)
 		Photos = append(Photos, p)
 	}
+	if err = rows.Err(); err != nil {
+		return Photos, err
+	}
+
 	return Photos, err
 }

@@ -27,6 +27,9 @@ func (db *appdbimpl) GetUserProfile(username string) ([]Profile, error) {
 		Profiles = append(Profiles, p)
 
 	}
+	if err = rows.Err(); err != nil {
+		return Profiles, err
+	}
 
 	return Profiles, err
 }
