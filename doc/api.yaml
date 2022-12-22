@@ -193,7 +193,7 @@ paths:
 
 
       responses:
-        "204":
+        "200":
           description: photo removed successfully
           content:
             text/plain:
@@ -344,7 +344,7 @@ paths:
       
 
       responses:
-        "204":
+        "200":
           description: user unbanned
           content:
             text/plain:
