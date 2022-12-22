@@ -8,7 +8,7 @@ import (
 func (rt *_router) Handler() http.Handler {
 
 	rt.router.POST("/session", rt.wrap(rt.doLogin))          // OK
-	rt.router.PUT("/profile/:id", rt.wrap(rt.setMyUsername)) // OK
+	rt.router.PUT("/profile/:id", rt.wrap(rt.setMyUserName)) // OK
 
 	rt.router.PUT("/users/:id1/follow/:id2", rt.wrap(rt.followUser))      // OK
 	rt.router.DELETE("/users/:id1/follow/:id2", rt.wrap(rt.unfollowUser)) // OK
