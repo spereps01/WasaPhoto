@@ -13,7 +13,7 @@ func (rt *_router) Handler() http.Handler {
 	rt.router.PUT("/users/:id1/follow/:id2", rt.wrap(rt.followUser))      // OK
 	rt.router.DELETE("/users/:id1/follow/:id2", rt.wrap(rt.unfollowUser)) // OK
 
-	rt.router.POST("/photo", rt.wrap(rt.addPhoto))                       // OK
+	rt.router.POST("/photo", rt.wrap(rt.uploadPhoto))                    // OK
 	rt.router.DELETE("/profile/:id/photo/:idp", rt.wrap(rt.deletePhoto)) // OK
 
 	rt.router.PUT("/photo/:idp/comment/:idc", rt.wrap(rt.commentPhoto))      // OK
