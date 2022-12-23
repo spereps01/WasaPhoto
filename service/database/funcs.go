@@ -6,7 +6,10 @@ func (db *appdbimpl) GetIdbyUsername(username string) int {
 		return 0
 	}
 	var id int
-	row.Scan(&id)
+	err = row.Scan(&id)
+	if err != nil {
+		return 0
+	}
 	return id
 }
 
@@ -18,7 +21,10 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 	}
 	for rows.Next() {
 		p := Photo{}
-		rows.Scan(&p.Id_photo, &p.User_id, &p.Data, &p.Photo)
+		err = rows.Scan(&p.Id_photo, &p.User_id, &p.Data, &p.Photo)
+		if err != nil {
+			return Photos, err
+		}
 		Photos = append(Photos, p)
 	}
 	if err = rows.Err(); err != nil {

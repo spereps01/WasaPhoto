@@ -10,8 +10,7 @@ import (
 
 func (rt *_router) getMyStream(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {
 
-	var i int
-	i = 2
+	i := 2
 
 	dbuser, err := rt.db.GetMyStream(i)
 
