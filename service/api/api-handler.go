@@ -22,8 +22,8 @@ func (rt *_router) Handler() http.Handler {
 	rt.router.PUT("/photo/:idp/like/:ido", rt.wrap(rt.likePhoto))      // OK
 	rt.router.DELETE("/photo/:idp/like/:ido", rt.wrap(rt.unlikePhoto)) // OK
 
-	rt.router.PUT("/b_users/:idu/ban/:idb", rt.wrap(rt.banUser))      // OK
-	rt.router.DELETE("/b_users/:idu/ban/:idb", rt.wrap(rt.unbanUser)) // OK
+	rt.router.PUT("/users/:id1/ban/:id2", rt.wrap(rt.banUser))      // OK
+	rt.router.DELETE("/users/:id1/ban/:id2", rt.wrap(rt.unbanUser)) // OK
 
 	rt.router.GET("/search/:username", rt.wrap(rt.getUserProfile)) // OK
 	rt.router.GET("/stream", rt.wrap(rt.getMyStream))              //

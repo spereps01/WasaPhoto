@@ -10,23 +10,23 @@ import (
 )
 
 func (rt *_router) unbanUser(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {
-	idu, err := strconv.ParseUint(ps.ByName("idu"), 10, 64)
+	id1, err := strconv.ParseUint(ps.ByName("id1"), 10, 64)
 	if err != nil {
 		// The value was not uint64, reject the action indicating an error on the client side.
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	idb, err := strconv.ParseUint(ps.ByName("idb"), 10, 64)
+	id2, err := strconv.ParseUint(ps.ByName("id2"), 10, 64)
 	if err != nil {
 		// The value was not uint64, reject the action indicating an error on the client side.
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	dbuser, err := rt.db.UnbanUser(int(idu), int(idb))
+	dbuser, err := rt.db.UnbanUser(int(id1), int(id2))
 	if err != nil {
-		ctx.Logger.WithError(err).WithField("idu", idu).Error("can't unban the user")
-		ctx.Logger.WithError(err).WithField("idb", idb).Error("can't unban the user")
+		ctx.Logger.WithError(err).WithField("id1", id1).Error("can't unban the user")
+		ctx.Logger.WithError(err).WithField("id2", id2).Error("can't unban the user")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
