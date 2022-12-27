@@ -409,7 +409,7 @@ paths:
 
 
       responses:
-        "204": 
+        "200": 
           description: comment removed
           content:
             text/plain:
@@ -465,7 +465,7 @@ paths:
 
 
       responses:
-        "204": 
+        "200": 
           description: like removed
           content:
             text/plain:
