@@ -33,6 +33,7 @@ func (db *appdbimpl) GetMyStream(id int) ([]Photo, error) {
 		stream = append(stream, Photos...)
 
 	}
+	foll.Close()
 
 	return stream, err
 }

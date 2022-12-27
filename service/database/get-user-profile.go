@@ -30,6 +30,7 @@ func (db *appdbimpl) GetUserProfile(username string) ([]Profile, error) {
 	if err = rows.Err(); err != nil {
 		return Profiles, err
 	}
+	rows.Close()
 
 	return Profiles, err
 }

@@ -30,6 +30,7 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 	if err = rows.Err(); err != nil {
 		return Photos, err
 	}
+	rows.Close()
 
 	return Photos, err
 }
