@@ -1,0 +1,17 @@
+import {createRouter, createWebHashHistory} from 'vue-router'
+import Search from '../views/Search.vue'
+import Login from '../views/doLogin.vue'
+import Profile from '../views/Profile.vue'
+import Stream from '../views/Stream.vue'
+
+const router = createRouter({
+	history: createWebHashHistory(import.meta.env.BASE_URL),
+	routes: [
+		{path: '/ricerca', component: Search},
+		{path: '/new', component: Login},
+		{path: '/ricerca/profile/', component: Profile},
+		{path: '/stream', component: Stream},
+	]
+})
+
+export default router

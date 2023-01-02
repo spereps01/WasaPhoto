@@ -1,0 +1,64 @@
+<script>
+export default {
+	data: function () {
+		return {
+			errormsg: null,
+			loading: false,
+			username: null,
+			risp: null
+		}
+	},
+	methods: {
+		doLogin: async function () {
+			this.loading = true;
+			this.errormsg = null;
+			try {
+				let response = await this.$axios.post("/session", {
+					username: this.username
+				});
+				this.risp = response.data
+			} catch (e) {
+				this.errormsg = e.toString();
+			}
+			this.loading = false;
+		}
+	}
+}
+</script>
+
+<template>
+	<div>
+		<div
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Login</h1>
+		</div>
+
+		<ErrorMsg v-if="errormsg" :msg="errormsg"></ErrorMsg>
+
+		<div class="mb-3">
+			<label for="description" class="form-label">Username</label>
+			<input type="string" class="form-control" id="username" v-model="username" placeholder="enter username">
+		</div>
+		
+		
+
+		<div>
+			<button v-if="!loading" type="button" class="btn btn-primary" @click="doLogin">
+				Do login
+			</button>
+			<LoadingSpinner v-if="loading"></LoadingSpinner>
+
+			<div class="card" v-if="!loading">
+
+				<div class="card-body">
+					<p class="card-text">
+						{{ risp }}<br />
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<style>
+</style>
