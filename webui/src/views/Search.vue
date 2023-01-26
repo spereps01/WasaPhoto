@@ -13,8 +13,8 @@ export default {
 			return load
 		},
 
-		async newItem() {
-			this.$router.push("/ricerca/profile");
+		async newItem(utente) {
+			this.$router.push("/ricerca/profile/"+utente);
 		},
 		async getUser(utente) {
 			this.loading = true;
@@ -56,7 +56,7 @@ export default {
 
 			<div class="card-body">
 				<p class="card-text">
-					<button type="button" class="btn btn-sm btn-outline-primary" @click="newItem">
+					<button type="button" class="btn btn-sm btn-outline-primary" @click="newItem(u.Username)">
 						{{ u.Username }}
 					</button>
 

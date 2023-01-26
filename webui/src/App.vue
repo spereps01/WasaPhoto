@@ -29,7 +29,7 @@ export default {}
 							</RouterLink>
 						</li>
 						<li class="nav-item">
-							<RouterLink to="/new" class="nav-link">
+							<RouterLink to="/session" class="nav-link">
 								<svg class="feather"><use href="/feather-sprite-v4.29.0.svg#plus-circle"/></svg>
 								Login
 							</RouterLink>		

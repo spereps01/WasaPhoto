@@ -8,7 +8,7 @@ func (db *appdbimpl) AddUsername(u User) (User, error) {
 	}
 
 	if count > 0 {
-		// username already exists, return existing user
+
 		err := db.c.QueryRow("SELECT id, username FROM users WHERE username=?", u.Username).Scan(&u.Id, &u.Username)
 		if err != nil {
 			return User{}, err
@@ -16,7 +16,6 @@ func (db *appdbimpl) AddUsername(u User) (User, error) {
 		return u, nil
 	}
 
-	// username does not exist, insert new user
 	res, err := db.c.Exec("INSERT INTO users(username) VALUES(?) ", u.Username)
 	if err != nil {
 		return User{}, err
