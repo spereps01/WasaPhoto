@@ -1,8 +1,11 @@
 package api
 
+//r.Header.Get("Authorization")
 import (
 	"encoding/json"
+
 	"net/http"
+	"strconv"
 
 	"git.sapienzaapps.it/gamificationlab/wasa-fontanelle/service/api/reqcontext"
 	"github.com/julienschmidt/httprouter"
@@ -10,9 +13,12 @@ import (
 
 func (rt *_router) getMyStream(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {
 
-	i := 2
+	tk, err := strconv.Atoi(r.Header.Get("Authorization"))
+	if err != nil {
+		return
+	}
 
-	dbuser, err := rt.db.GetMyStream(i)
+	dbuser, err := rt.db.GetMyStream(tk)
 
 	if err != nil {
 		// In this case, we have an error on our side. Log the error (so we can be notified) and send a 500 to the user

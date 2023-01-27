@@ -1,11 +1,27 @@
 package database
 
-import "log"
+func (db *appdbimpl) GetMyStream(tk int) ([]Photo, error) {
 
-func (db *appdbimpl) GetMyStream(id int) ([]Photo, error) {
 	var stream []Photo
 	var array []int
 	var a int
+	var id int
+
+	idx, err := db.c.Query("SELECT id FROM users WHERE token=?", tk)
+	if err != nil {
+		return stream, err
+	}
+
+	for idx.Next() {
+		err = idx.Scan(&id)
+		if err != nil {
+			return stream, err
+		}
+	}
+	if err = idx.Err(); err != nil {
+		return stream, err
+	}
+
 	foll, err := db.c.Query("SELECT id2 FROM follow WHERE id1=?", id)
 	if err != nil {
 		return stream, err
@@ -19,14 +35,11 @@ func (db *appdbimpl) GetMyStream(id int) ([]Photo, error) {
 		array = append(array, a)
 
 	}
-	if err = foll.Err(); err != nil {
-		return stream, err
-	}
 
 	for _, v := range array {
 		var Photos []Photo
 		Photos, err = db.GetPhotosbyId(v)
-		log.Println(Photos)
+
 		if err != nil {
 			return Photos, err
 		}

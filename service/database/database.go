@@ -41,6 +41,7 @@ import (
 type User struct {
 	Id       uint64
 	Username string
+	Token    uint64
 }
 type Photo struct {
 	Id_photo uint64
@@ -93,7 +94,7 @@ type AppDatabase interface {
 
 	GetUserProfile(username string) ([]Profile, error)
 
-	GetMyStream(id int) ([]Photo, error)
+	GetMyStream(tk int) ([]Photo, error)
 
 	// Ping checks whether the database is available or not (in that case, an error will be returned)
 	Ping() error
@@ -119,8 +120,10 @@ func New(db *sql.DB) (AppDatabase, error) {
 		CREATE TABLE IF NOT EXISTS users (
 			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 			username TEXT,
+			token INTEGER,
 			UNIQUE (username),
-			UNIQUE (id)
+			UNIQUE (id),
+			UNIQUE(token)
 		);  
 		
 		CREATE TABLE IF NOT EXISTS photos (

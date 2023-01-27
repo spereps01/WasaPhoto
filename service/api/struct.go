@@ -16,6 +16,7 @@ const (
 type Users struct {
 	ID       uint64 `json:"id"`
 	Username string `json:"username"`
+	Token    uint64 `json:"id"`
 }
 type Comment struct {
 	Comment_id uint64
@@ -45,6 +46,8 @@ type Photo struct {
 func (u *Users) FromDatabase(user database.User) {
 	u.ID = user.Id
 	u.Username = user.Username
+	u.Token = user.Token
+
 }
 
 // ToDatabase returns the fountain in a database-compatible representation
@@ -52,6 +55,7 @@ func (u *Users) ToDatabase() database.User {
 	return database.User{
 		Id:       u.ID,
 		Username: u.Username,
+		Token:    u.Token,
 	}
 }
 
