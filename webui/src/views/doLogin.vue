@@ -9,6 +9,8 @@ export default {
 		}
 	},
 	methods: {
+
+
 		doLogin: async function () {
 			this.loading = true;
 			this.errormsg = null;
@@ -17,6 +19,8 @@ export default {
 					username: this.username
 				});
 				this.risp = response.data
+				this.$router.push("/profile/"+this.username);
+				
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
@@ -48,14 +52,7 @@ export default {
 			</button>
 			<LoadingSpinner v-if="loading"></LoadingSpinner>
 
-			<div class="card" v-if="!loading">
 
-				<div class="card-body">
-					<p class="card-text">
-						{{ risp }}<br />
-					</p>
-				</div>
-			</div>
 		</div>
 	</div>
 </template>

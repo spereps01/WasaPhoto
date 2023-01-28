@@ -40,6 +40,12 @@ export default {}
 								Stream
 							</RouterLink>		
 						</li>
+						<li class="nav-item">
+							<RouterLink to="/profile" class="nav-link">
+								<svg class="feather"><use href="/feather-sprite-v4.29.0.svg#user"/></svg>
+								MyProfile
+							</RouterLink>		
+						</li>
 					</ul>
 				</div>
 			</nav>
