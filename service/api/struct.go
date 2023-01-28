@@ -16,7 +16,7 @@ const (
 type Users struct {
 	ID       uint64 `json:"id"`
 	Username string `json:"username"`
-	Token    uint64 `json:"id"`
+	Token    uint64 `json:"token"`
 }
 type Comment struct {
 	Comment_id uint64

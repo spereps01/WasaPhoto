@@ -24,6 +24,7 @@ func (db *appdbimpl) GetUserProfile(username string) ([]Profile, error) {
 		}
 
 		p.Photos = Photos
+		p.N_p = uint64(len(p.Photos))
 		Profiles = append(Profiles, p)
 
 	}
