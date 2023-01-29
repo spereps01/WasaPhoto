@@ -1,7 +1,9 @@
 package database
 
-func (db *appdbimpl) AddPhoto(p Photo) (Photo, error) {
-
+func (db *appdbimpl) AddPhoto(p Photo, tk int) (Photo, error) {
+	var i int
+	db.c.QueryRow("SELECT id FROM users WHERE token=?", tk).Scan(&i)
+	p.User_id = uint64(i)
 	res, err := db.c.Exec("INSERT INTO photos(user_id,data,photo) VALUES(?,?,?) ", p.User_id, p.Data, p.Photo)
 	if err != nil {
 		return Photo{}, err

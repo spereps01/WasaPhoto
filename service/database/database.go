@@ -75,7 +75,7 @@ type AppDatabase interface {
 
 	AddUsername(u User) (User, error)
 
-	AddPhoto(p Photo) (Photo, error)
+	AddPhoto(p Photo, tk int) (Photo, error)
 
 	DeletePhoto(id_photo int, user_id int) (string, error)
 

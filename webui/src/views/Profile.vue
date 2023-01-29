@@ -39,7 +39,7 @@ export default {
 			
 		</div>
 		<div class="mb-3">
-			<a href="javascript:" class="btn btn-primary" @click="getUser()">Info</a>
+			<a href="javascript:" class="btn btn-info" @click="getUser()">Informations</a>
 		</div>
 		<LoadingSpinner v-if="loading"></LoadingSpinner>
 
@@ -51,13 +51,16 @@ export default {
 				<p class="card-text">
 					Username:{{" "  + u.Username }}<br/>
 					Numero di foto:{{" "  + u.N_p }}<br/>
-					Foto:{{" "  + u.Photos }}<br/>
 					Numero di followers:{{" "  + u.N_followers }}<br/>
 					Numero di followings:{{" "  + u.N_followings }}<br/>
-					
-
-
 				</p>
+				<div v-if="!loading" v-for="p in u.Photos">
+						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
+						<a href="javascript:" class="btn btn-primary">Like</a>
+						<a href="javascript:" class="btn btn-secondary">Comment</a>
+						
+
+				</div>
 			</div>
 		</div>
     </div>
