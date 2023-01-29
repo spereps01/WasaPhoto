@@ -61,10 +61,12 @@ type Like struct {
 }
 
 type Profile struct {
-	Id       uint64
-	Username string
-	Photos   []Photo
-	N_p      uint64
+	Id           uint64
+	Username     string
+	Photos       []Photo
+	N_p          uint64
+	N_followers  uint64
+	N_followings uint64
 }
 
 // AppDatabase is the high level interface for the DB

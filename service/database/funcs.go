@@ -34,3 +34,25 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 
 	return Photos, err
 }
+
+func (db *appdbimpl) GetFollowersbyId(id int) (int, error) {
+
+	var count int
+	err := db.c.QueryRow("SELECT COUNT(*) FROM follow WHERE id2=?", id).Scan(&count)
+	if err != nil {
+		return 0, err
+	}
+
+	return count, err
+}
+
+func (db *appdbimpl) GetFollowingsbyId(id int) (int, error) {
+
+	var count int
+	err := db.c.QueryRow("SELECT COUNT(*) FROM follow WHERE id1=?", id).Scan(&count)
+	if err != nil {
+		return 0, err
+	}
+
+	return count, err
+}

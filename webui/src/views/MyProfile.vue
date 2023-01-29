@@ -36,6 +36,8 @@ export default {
 		},
 
 
+
+
         
 		async getUser() {
 	
@@ -44,7 +46,7 @@ export default {
 			try {
 				let response = await this.$axios.get("/search/" + this.$route.params.username);
 				this.users = response.data;
-                console.log(response.data[0].Id)
+   
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
@@ -69,6 +71,8 @@ export default {
 			<a href="javascript:" class="btn btn-primary" @click="getUser()">Info</a>
 
             <label for="description" class="btn btn-warning" @click="showModal = true">Change Username </label>
+
+			<label for="description" class="btn btn-secondary" >Upload Photo </label>
             
 		</div>
         <LoadingSpinner v-if="loading"></LoadingSpinner>
@@ -84,11 +88,16 @@ export default {
 					Username:{{" "  + u.Username }}<br/>
 					Numero di foto:{{" "  + u.N_p }}<br/>
 					Foto:{{" "  + u.Photos }}<br/>
+					Numero di followers:{{" "  + u.N_followers }}<br/>
+					Numero di followings:{{" "  + u.N_followings }}<br/>
 
 
 				</p>
+				<a href="javascript:" class="btn btn-secondary" @click="loading = true">Close</a>
 			</div>
 		</div>
+
+
 
         <div v-if="showModal" class="modal-overlay">
             <div class="modal-content">

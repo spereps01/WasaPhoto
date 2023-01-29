@@ -52,6 +52,9 @@ export default {
 					Username:{{" "  + u.Username }}<br/>
 					Numero di foto:{{" "  + u.N_p }}<br/>
 					Foto:{{" "  + u.Photos }}<br/>
+					Numero di followers:{{" "  + u.N_followers }}<br/>
+					Numero di followings:{{" "  + u.N_followings }}<br/>
+					
 
 
 				</p>
