@@ -23,12 +23,6 @@ export default {}
 					</h6>
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<RouterLink to="/ricerca" class="nav-link">
-								<svg class="feather"><use href="/feather-sprite-v4.29.0.svg#search"/></svg>
-								Ricerca
-							</RouterLink>
-						</li>
-						<li class="nav-item">
 							<RouterLink to="/session" class="nav-link">
 								<svg class="feather"><use href="/feather-sprite-v4.29.0.svg#plus-circle"/></svg>
 								Login

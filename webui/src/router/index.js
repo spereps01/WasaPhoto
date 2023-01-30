@@ -10,7 +10,7 @@ const router = createRouter({
 		{path: '/ricerca', component: Search},
 		{path: '/session', component: Login},
 		{path: '/ricerca/profile/:username', component: Profile},
-		{path: '/profile/:username', component: MyProfile},
+		{path: '/profile/', component: MyProfile},
 	]
 })
 

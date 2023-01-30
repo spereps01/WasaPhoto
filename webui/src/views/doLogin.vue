@@ -19,7 +19,9 @@ export default {
 					username: this.username
 				});
 				this.risp = response.data
-				this.$router.push("/profile/"+this.username);
+				localStorage.setItem("username",this.username);
+				localStorage.setItem("id",this.risp.id);
+				this.$router.push("/profile/");
 				
 			} catch (e) {
 				this.errormsg = e.toString();

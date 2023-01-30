@@ -23,7 +23,7 @@ export default {
 			this.errormsg = null;
 
 			try {
-				let u = await this.$axios.get("/search/" + this.$route.params.username);
+				let u = await this.$axios.get("/search/" + localStorage.getItem("username"));
 				this.ut = u.data[0].Id
                 
 
@@ -46,7 +46,7 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + this.$route.params.username);
+				let response = await this.$axios.get("/search/" + localStorage.getItem("username"));
 				this.users = response.data;
    
 			} catch (e) {
@@ -55,11 +55,11 @@ export default {
 			this.loading = false;
 		},
 		async getOneUser() {
-	
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + this.$route.params.username);
+
+				let response = await this.$axios.get("/search/" + localStorage.getItem("username"));
 
 				this.users = [response.data[0]];
 			} catch (e) {
@@ -75,12 +75,20 @@ export default {
 			this.images = new Uint8Array(event.target.result);
 
 		}},
+
+
+		async searchUser() {
+			this.$router.push("/ricerca");
+		},
+
+
 		async UpPh() {
 	
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let u = await this.$axios.get("/search/" + this.$route.params.username);
+				
+				let u = await this.$axios.get("/search/" + localStorage.getItem("username"));
 				this.ut = u.data[0].Id
 				let response = await this.$axios.post("/profile/"+ this.ut +"/photo", this.images);
 				this.foto = response.data;
@@ -104,6 +112,11 @@ export default {
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2">MyProfile</h1>
+			<div class="btn-group me-2">
+				<input type="file" accept="image/*" class="btn btn-outline-primary" @change="uploadPhoto" ref="file">
+				<button class="btn btn-success" @click="UpPh">Upload</button>
+			</div>
+			
 			
 		</div>
 
@@ -112,8 +125,8 @@ export default {
 
             <label for="description" class="btn btn-warning" @click="showModal = true">Change Username </label>
 
-			<input type="file" accept="image/*" class="btn btn-outline-primary" @change="uploadPhoto" ref="file">
-			<button class="btn btn-success" @click="UpPh">Upload</button>
+			<button class="btn btn-success" @click="searchUser()">Search</button>
+
             
 		</div>
         <LoadingSpinner v-if="loading"></LoadingSpinner>
