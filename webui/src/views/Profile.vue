@@ -5,7 +5,7 @@ export default {
 			errormsg: null,
 			loading: false,
 			ut: null,
-			users: [],
+			users: null,
 		}
 	},
 	methods: {
@@ -19,6 +19,19 @@ export default {
 			try {
 				let response = await this.$axios.get("/search/" + this.$route.params.username);
 				this.users = response.data;
+			} catch (e) {
+				this.errormsg = e.toString();
+			}
+			this.loading = false;
+		},
+		async getOneUser() {
+	
+			this.loading = true;
+			this.errormsg = null;
+			try {
+				let response = await this.$axios.get("/search/" + this.$route.params.username);
+
+				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
@@ -39,7 +52,7 @@ export default {
 			
 		</div>
 		<div class="mb-3">
-			<a href="javascript:" class="btn btn-info" @click="getUser()">Informations</a>
+			<a href="javascript:" class="btn btn-info" @click="getOneUser()">Informations</a>
 		</div>
 		<LoadingSpinner v-if="loading"></LoadingSpinner>
 

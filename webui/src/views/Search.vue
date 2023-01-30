@@ -44,7 +44,6 @@ export default {
 		<ErrorMsg v-if="errormsg" :msg="errormsg"></ErrorMsg>
 		
 		<div class="mb-3">
-			<label for="description" class="form-label">Username</label>
 			<input type="string" class="form-control" id="utente" v-model="utente" placeholder="enter username">
 			<a href="javascript:" class="btn btn-primary" @click="getUser(utente)">Ricerca</a>
 		</div>

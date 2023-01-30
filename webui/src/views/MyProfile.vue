@@ -8,6 +8,8 @@ export default {
             username: null,
 			users: null,
             showModal: false,
+			images : null,
+			foto:null,
 		}
 	},
 	methods: {
@@ -52,6 +54,44 @@ export default {
 			}
 			this.loading = false;
 		},
+		async getOneUser() {
+	
+			this.loading = true;
+			this.errormsg = null;
+			try {
+				let response = await this.$axios.get("/search/" + this.$route.params.username);
+
+				this.users = [response.data[0]];
+			} catch (e) {
+				this.errormsg = e.toString();
+			}
+			this.loading = false;
+		},
+
+		async uploadPhoto() {
+			const reader = new FileReader();
+			reader.readAsArrayBuffer(this.$refs.file.files[0]);
+			reader.onloadend = (event) => {
+			this.images = new Uint8Array(event.target.result);
+
+		}},
+		async UpPh() {
+	
+			this.loading = true;
+			this.errormsg = null;
+			try {
+				let u = await this.$axios.get("/search/" + this.$route.params.username);
+				this.ut = u.data[0].Id
+				let response = await this.$axios.post("/profile/"+ this.ut +"/photo", this.images);
+				this.foto = response.data;
+				console.log(this.foto.Photo)
+		
+   
+			} catch (e) {
+				this.errormsg = e.toString();
+			}
+			this.loading = false;
+		},
 
 	},
 
@@ -68,11 +108,12 @@ export default {
 		</div>
 
 		<div class="mb-3">
-			<a href="javascript:" class="btn btn-primary" @click="getUser()">Info</a>
+			<a href="javascript:" class="btn btn-primary" @click="getOneUser()">Info</a>
 
             <label for="description" class="btn btn-warning" @click="showModal = true">Change Username </label>
 
-			<label for="description" class="btn btn-secondary" >Upload Photo </label>
+			<input type="file" accept="image/*" class="btn btn-outline-primary" @change="uploadPhoto" ref="file">
+			<button class="btn btn-success" @click="UpPh">Upload</button>
             
 		</div>
         <LoadingSpinner v-if="loading"></LoadingSpinner>
@@ -93,6 +134,9 @@ export default {
 				</p>
 				<div v-if="!loading" v-for="p in u.Photos">
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
+						<a href="javascript:" class="btn btn-primary">Like</a>
+						<a href="javascript:" class="btn btn-secondary">Comment</a>
+						<a href="javascript:" class="btn btn-danger">Delete</a>
 				</div>
 				<a href="javascript:" class="btn btn-secondary" @click="loading = true">Close</a>
 			</div>
@@ -110,6 +154,8 @@ export default {
                 </div>
             </div>
         </div>
+
+
 
 
 
