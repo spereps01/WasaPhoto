@@ -12,6 +12,7 @@ import (
 func (rt *_router) commentPhoto(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {
 
 	idp, err := strconv.ParseUint(ps.ByName("idp"), 10, 64)
+
 	if err != nil {
 
 		w.WriteHeader(http.StatusBadRequest)
@@ -25,6 +26,8 @@ func (rt *_router) commentPhoto(w http.ResponseWriter, r *http.Request, ps httpr
 	}
 
 	var comment Comment
+	comment.Id_photo = idp
+	comment.Owner_id = idc
 	err = json.NewDecoder(r.Body).Decode(&comment)
 	if err != nil {
 		// The body was not a parseable JSON, reject it

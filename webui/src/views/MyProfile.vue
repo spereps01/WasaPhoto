@@ -10,6 +10,7 @@ export default {
             showModal: false,
 			images : null,
 			foto:null,
+			idp: null,
 		}
 	},
 	methods: {
@@ -98,7 +99,22 @@ export default {
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
-			this.loading = false;
+			this.getOneUser();
+		},
+		async deletePhoto(idp) {
+	
+			this.loading = true;
+			this.errormsg = null;
+			try {
+			
+				let response = await this.$axios.delete("/profile/"+localStorage.getItem("id").toString()+"/photo/"+idp.toString());
+				this.foto = response.data;
+		
+   
+			} catch (e) {
+				this.errormsg = e.toString();
+			}
+			this.getOneUser();
 		},
 
 	},
@@ -149,7 +165,7 @@ export default {
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
 						<a href="javascript:" class="btn btn-primary">Like</a>
 						<a href="javascript:" class="btn btn-secondary">Comment</a>
-						<a href="javascript:" class="btn btn-danger">Delete</a>
+						<a href="javascript:" class="btn btn-danger" @click="deletePhoto(p.Id_photo)">Delete</a>
 				</div>
 				<a href="javascript:" class="btn btn-secondary" @click="loading = true">Close</a>
 			</div>

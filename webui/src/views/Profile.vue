@@ -10,6 +10,8 @@ export default {
 			likeStatus: false,
 			followStatus: false,
 			banStatus: false,
+			showComments : false,
+			comment : null,
 		}
 	},
 	methods: {
@@ -85,7 +87,6 @@ export default {
 	
 			this.loading = true;
 			this.errormsg = null;
-			console.log(id)
 			try {
 				let response = await this.$axios.delete("/users/"+ localStorage.getItem("id").toString()+"/follow/"+id.toString());
 				this.followStatus = false;
@@ -123,6 +124,25 @@ export default {
 			}
 			this.getOneUser()
 		},
+		async goBack() {
+			this.$router.push("/profile");
+		},
+
+		async commentPhoto(id) {
+			console.log(id)
+	
+			this.loading = true;
+			this.errormsg = null;
+			try {
+				let response = await this.$axios.put("/photo/"+id.toString()+"/comment/"+localStorage.getItem("id"),{
+					comment: this.comment
+				});
+				this.users = [response.data[0]];
+			} catch (e) {
+				this.errormsg = e.toString();
+			}
+			this.getOneUser()
+		},
 		
 
 	},
@@ -138,6 +158,7 @@ export default {
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2">Profilo</h1>
+			<a href="javascript:" class="btn btn-primary" @click="goBack()">Home</a>
 			
 		</div>
 		<div class="mb-3">
@@ -164,11 +185,22 @@ export default {
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
 						<a href="javascript:" class="btn btn-primary" v-if="likeStatus == false" @click="likePhoto(p.Id_photo)">Like</a>
 						<a href="javascript:" class="btn btn-primary" v-if="likeStatus == true" @click="unlikePhoto(p.Id_photo)">Unlike</a>
-						<a href="javascript:" class="btn btn-secondary">Comment</a>
+						<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
+						<a href="javascript:" class="btn btn-secondary" @click="commentPhoto(p.Id_photo)">Send Comment</a>
 						
 
 				</div>
 			</div>
 		</div>
+		<div v-if="showComments" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Comments</h2>
+                <input type="string" class="form-control" id="comment" v-model="username" placeholder="enter the comment">
+                <div class="mb-3">
+                <a href="javascript:" class="btn btn-primary" @click="commentPhoto(p.Id_photo)">SendComment</a>
+                <a href="javascript:" class="btn btn-secondary" @click="showComments = false">Close</a>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
