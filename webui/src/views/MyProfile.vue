@@ -71,9 +71,12 @@ export default {
 
 		async uploadPhoto() {
 			const reader = new FileReader();
+			console.log(this.$refs.file.files[0])
 			reader.readAsArrayBuffer(this.$refs.file.files[0]);
 			reader.onloadend = (event) => {
 			this.images = new Uint8Array(event.target.result);
+	
+
 
 		}},
 

@@ -220,6 +220,7 @@ export default {
 						<a href="javascript:" class="btn btn-primary" v-if="likeStatus == false" @click="likePhoto(p.Id_photo)">Like</a>
 						<a href="javascript:" class="btn btn-primary" v-if="likeStatus == true" @click="unlikePhoto(p.Id_photo)">Unlike</a>
 						<a href="javascript:" class="btn btn-dark" @click="getComments(p.Id_photo)">View Comments</a>
+						
 						<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
 						<a href="javascript:" class="btn btn-secondary" @click="commentPhoto(p.Id_photo)">Send Comment</a>
 						
