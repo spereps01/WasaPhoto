@@ -153,6 +153,7 @@ export default {
                 {{s.Username }}<br/>
             </button>
             <img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
+			Uploaded: {{s.Data}}
 			<div class="card-body">
             <a href="javascript:"  class="btn btn-primary" @click="likePhoto(s.Id_photo)">Like</a>
             <a href="javascript:" class="btn btn-danger" @click="unlikePhoto(s.Id_photo)">Unlike</a>

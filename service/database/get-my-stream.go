@@ -1,5 +1,7 @@
 package database
 
+import "sort"
+
 func (db *appdbimpl) GetMyStream(tk int) ([]Photo, error) {
 
 	var stream []Photo
@@ -47,6 +49,9 @@ func (db *appdbimpl) GetMyStream(tk int) ([]Photo, error) {
 
 	}
 	foll.Close()
+	sort.Slice(stream, func(i, j int) bool {
+		return stream[i].Data > stream[j].Data
+	})
 
 	return stream, err
 }
