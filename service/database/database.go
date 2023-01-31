@@ -46,6 +46,7 @@ type User struct {
 type Photo struct {
 	Id_photo uint64
 	User_id  uint64
+	Username string
 	Data     string
 	Photo    []byte
 }
@@ -82,6 +83,8 @@ type AppDatabase interface {
 	AddComment(c Comment) (string, error)
 
 	DeleteComment(comment_id int) (string, error)
+
+	GetComments(photo_id int) ([]Comment, error)
 
 	AddLike(owner_id int, id_photo int) (string, error)
 

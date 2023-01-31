@@ -28,7 +28,7 @@ export default {
 			this.loading = false;
 		},
 		async goBack() {
-			this.$router.push("/profile");
+			this.$router.push("/stream");
 		},
 
 	},

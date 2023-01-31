@@ -12,6 +12,15 @@ func (db *appdbimpl) GetIdbyUsername(username string) int {
 	}
 	return id
 }
+func (db *appdbimpl) GetUsernamebyId(id int) string {
+	var username string
+	err := db.c.QueryRow("SELECT username FROM users WHERE id=?", id).Scan(&username)
+	if err != nil {
+		return ""
+	}
+
+	return username
+}
 
 func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 	var Photos []Photo
@@ -25,6 +34,8 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 		if err != nil {
 			return Photos, err
 		}
+
+		p.Username = db.GetUsernamebyId(int(p.User_id))
 		Photos = append(Photos, p)
 	}
 	if err = rows.Err(); err != nil {

@@ -21,6 +21,7 @@ export default {
 				this.risp = response.data
 				localStorage.setItem("username",this.username);
 				localStorage.setItem("id",this.risp.id);
+				localStorage.setItem("token",this.risp.token)
 				this.$router.push("/profile/");
 				
 			} catch (e) {

@@ -128,7 +128,7 @@ paths:
 
 
 
-  /photo:
+  /profile/{id}/photo:
     post:
       security:
        - bearerAuth: []
@@ -151,6 +151,11 @@ paths:
                 format: binary
                 minLength: 0
                 maxLength: 1223
+        - name: id
+          in: path
+          required: true
+          description: id of the user who wants to upload the photo
+          schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
 
       requestBody:
@@ -222,6 +227,36 @@ paths:
               schema:
                 type: array
                 items: { $ref: "#/components/schemas/Photo" }  
+                minItems: 0 
+                maxItems: 5000
+
+
+  /photo/{idp}/comments:
+    get:
+      security:
+       - bearerAuth: []
+      tags: ["Photo Operations"]
+      operationId: getComments
+      summary: returns the comments
+      description: |-
+        Returns the comments of the photo(input=id photo)
+
+      parameters: 
+
+        - name: idp
+          in: path
+          required: true
+          description: id photo
+          schema: { $ref: "#/components/schemas/Photo/properties/PhotoID" }
+      
+      responses:
+        "200":
+          description: comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Photo/properties/comments" }  
                 minItems: 0 
                 maxItems: 5000
 
