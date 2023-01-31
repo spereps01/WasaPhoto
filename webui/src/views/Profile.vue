@@ -54,12 +54,19 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.put("/photo/"+ id.toString()+"/like/"+localStorage.getItem("id").toString());
-				this.likeStatus = true;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
 			this.getOneUser()
+			
+			if (this.likeStatus==false){
+				this.likeStatus=true
+			}
+			else{
+				alert("Like already added!")
+			}
+			
 		},
 		async unlikePhoto(id) {
 	
@@ -67,25 +74,36 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.delete("/photo/"+ id.toString()+"/like/"+localStorage.getItem("id").toString());
-				this.likeStatus = false;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
 			this.getOneUser()
+			if (this.likeStatus==true){
+				this.likeStatus=false
+			}
+			else{
+				alert("There is no Like to remove!")
+			}
 		},
+
 		async followUser(id) {
 	
 			this.loading = true;
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.put("/users/"+ localStorage.getItem("id").toString()+"/follow/"+id.toString());
-				this.followStatus = true;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
 			this.getOneUser()
+			if (this.followStatus==false){
+				this.followStatus=true
+			}
+			else{
+				alert("User already followed!")
+			}
 		},
 		async unfollowUser(id) {
 	
@@ -93,12 +111,17 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.delete("/users/"+ localStorage.getItem("id").toString()+"/follow/"+id.toString());
-				this.followStatus = false;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
 			this.getOneUser()
+			if (this.followStatus==true){
+				this.followStatus=false
+			}
+			else{
+				alert("User already unfollowed!")
+			}
 		},
 		async banUser(id) {
 	
@@ -106,12 +129,18 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.put("/users/"+ localStorage.getItem("id").toString()+"/ban/"+id.toString());
-				this.banStatus = true;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
 			this.getOneUser()
+			if (this.banStatus==false){
+				this.banStatus=true
+				alert("User banned correctly")
+			}
+			else{
+				alert("User already banned!")
+			}
 		},
 		async unbanUser(id) {
 	
@@ -119,12 +148,18 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.delete("/users/"+ localStorage.getItem("id").toString()+"/ban/"+id.toString());
-				this.banStatus = false;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
 			this.getOneUser()
+			if (this.banStatus==true){
+				this.banStatus=false
+				alert("User unbanned correctly")
+			}
+			else{
+				alert("User already unbanned!")
+			}
 		},
 		async goBack() {
 			this.$router.push("/stream");
@@ -203,10 +238,13 @@ export default {
 
 
 		<div class="card" v-if="!loading" v-for="u in users">
-			<a href="javascript:" class="btn btn-warning" v-if="followStatus == false" @click="followUser(u.Id)">Follow</a>
-			<a href="javascript:" class="btn btn-warning" v-if="followStatus == true" @click="unfollowUser(u.Id)">Unfollow</a>
-			<a href="javascript:" class="btn btn-danger" v-if="banStatus == false" @click="banUser(u.Id)">Ban</a>
-			<a href="javascript:" class="btn btn-danger" v-if="banStatus == true" @click="unbanUser(u.Id)">Unban</a>
+		<div class="card-body">
+			<a href="javascript:" class="btn btn-warning"  @click="followUser(u.Id)">Follow</a>
+			<a href="javascript:" class="btn btn-danger"  @click="unfollowUser(u.Id)">Unfollow</a>
+			<p></p>
+			<a href="javascript:" class="btn btn-warning" @click="banUser(u.Id)">Ban</a>
+			<a href="javascript:" class="btn btn-danger" @click="unbanUser(u.Id)">Unban</a>
+		</div>
 
 			<div class="card-body">
 				<p class="card-text">
@@ -217,12 +255,12 @@ export default {
 				</p>
 				<div v-if="!loading" v-for="p in u.Photos">
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
-						<a href="javascript:" class="btn btn-primary" v-if="likeStatus == false" @click="likePhoto(p.Id_photo)">Like</a>
-						<a href="javascript:" class="btn btn-primary" v-if="likeStatus == true" @click="unlikePhoto(p.Id_photo)">Unlike</a>
-						<a href="javascript:" class="btn btn-dark" @click="getComments(p.Id_photo)">View Comments</a>
+						<a href="javascript:" class="btn btn-primary"  @click="likePhoto(p.Id_photo)">Like</a>
+						<a href="javascript:" class="btn btn-danger"  @click="unlikePhoto(p.Id_photo)">Unlike</a>
+						<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>
 						
 						<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
-						<a href="javascript:" class="btn btn-secondary" @click="commentPhoto(p.Id_photo)">Send Comment</a>
+						<a href="javascript:" class="btn btn-success" @click="commentPhoto(p.Id_photo)">Send Comment</a>
 						
 
 				</div>

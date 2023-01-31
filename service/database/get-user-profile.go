@@ -1,7 +1,5 @@
 package database
 
-import "log"
-
 func (db *appdbimpl) GetUserProfile(username string) ([]Profile, error) {
 	var Profiles []Profile
 	rows, err := db.c.Query("SELECT id,username FROM users WHERE username LIKE ?", "%"+username+"%")
@@ -41,7 +39,6 @@ func (db *appdbimpl) GetUserProfile(username string) ([]Profile, error) {
 		p.N_followers = uint64(followers)
 		p.N_followings = uint64(followings)
 		Profiles = append(Profiles, p)
-		log.Print(followers)
 
 	}
 	if err = rows.Err(); err != nil {

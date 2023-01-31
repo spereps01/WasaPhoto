@@ -8,7 +8,7 @@ export default {
 			risp: null,
             stream: [],
             users: [],
-            likeStatus: true,
+            likeStatus: false,
             showComments: false,
             chI: false,
 		}
@@ -44,12 +44,17 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.put("/photo/"+ id.toString()+"/like/"+localStorage.getItem("id").toString());
-				this.likeStatus = true;
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
             this.getStream()
+			if (this.likeStatus==false){
+				this.likeStatus=true
+			}
+			else{
+				alert("Like already added!")
+			}
 		},
 		async unlikePhoto(id) {
 	
@@ -57,12 +62,18 @@ export default {
 			this.errormsg = null;
 			try {
 				let response = await this.$axios.delete("/photo/"+ id.toString()+"/like/"+localStorage.getItem("id").toString());
-				this.likeStatus = false;
+			
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
             this.getStream()
+			if (this.likeStatus==true){
+				this.likeStatus=false
+			}
+			else{
+				alert("Like already removed!")
+			}
 		},
         async commentPhoto(id) {
 	
@@ -138,16 +149,19 @@ export default {
         </div>
 
         <div class="card" v-if="!loading" v-for="s in stream">
-            <button type="button" class="btn btn-sm btn-outline-primary" style="width: 100px; height: 50px;" @click="Myp(s.Username)">
+            <button type="button" class="btn btn-sm btn-outline-dark" style="width: 100px; height: 40px;" @click="Myp(s.Username)">
                 {{s.Username }}<br/>
             </button>
             <img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
-            <a href="javascript:"  class="btn btn-primary" style="width: 100px; height: 35px;" v-if="likeStatus == false" @click="likePhoto(s.Id_photo)">Like</a>
-            <a href="javascript:" class="btn btn-primary" style="width: 100px; height: 35px;" v-if="likeStatus == true" @click="unlikePhoto(s.Id_photo)">Unlike</a>
-            <a href="javascript:" class="btn btn-warning" style="width: 120px; height: 35px;" @click="getComments(s.Id_photo)">Comments</a>
+			<div class="card-body">
+            <a href="javascript:"  class="btn btn-primary" @click="likePhoto(s.Id_photo)">Like</a>
+            <a href="javascript:" class="btn btn-danger" @click="unlikePhoto(s.Id_photo)">Unlike</a>
+            <a href="javascript:" class="btn btn-warning" @click="getComments(s.Id_photo)">Show Comments</a>
+			
 			
             <input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
-            <a href="javascript:" class="btn btn-success" @click="commentPhoto(s.Id_photo)">Send Comment</a>
+            <a href="javascript:" class="btn btn-success" style="width: 160px; height: 35px;" @click="commentPhoto(s.Id_photo)">Send Comment</a>
+			</div>
 			
         </div>
 
