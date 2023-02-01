@@ -60,8 +60,8 @@ func (db *appdbimpl) GetUserProfile(username string, tk int) ([]Profile, error) 
 		}
 
 	}
-	if err = rows.Err(); err != nil {
-		return Profiles, err
+	if rows.Err() != nil {
+		return nil, err
 	}
 	rows.Close()
 

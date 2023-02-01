@@ -46,8 +46,8 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 		p.Username = db.GetUsernamebyId(int(p.User_id))
 		Photos = append(Photos, p)
 	}
-	if err = rows.Err(); err != nil {
-		return Photos, err
+	if rows.Err() != nil {
+		return nil, err
 	}
 	rows.Close()
 

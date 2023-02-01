@@ -25,9 +25,21 @@ func (rt *_router) banUser(w http.ResponseWriter, r *http.Request, ps httprouter
 	}
 
 	dbuser, err := rt.db.BanUser(int(id1), int(id2))
+	if err != nil {
+		ctx.Logger.WithError(err).WithField("id2", id2).Error("can't ban the user")
+		ctx.Logger.WithError(err).WithField("id1", id1).Error("can't ban the user")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
-	rt.db.UnfollowUser(int(id2), int(id1))
-	rt.db.UnfollowUser(int(id1), int(id2))
+	_, err = rt.db.UnfollowUser(int(id2), int(id1))
+	if err != nil {
+		ctx.Logger.WithError(err).WithField("id2", id2).Error("can't ban the user")
+		ctx.Logger.WithError(err).WithField("id1", id1).Error("can't ban the user")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	_, err = rt.db.UnfollowUser(int(id1), int(id2))
 	if err != nil {
 		ctx.Logger.WithError(err).WithField("id2", id2).Error("can't ban the user")
 		ctx.Logger.WithError(err).WithField("id1", id1).Error("can't ban the user")
