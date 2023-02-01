@@ -16,6 +16,7 @@ export default {
 			chI:false,
 			idc: null,
 			idp:null,
+			salvato: null,
 		}
 	},
 	methods: {
@@ -27,7 +28,11 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + this.$route.params.username);
+				let response = await this.$axios.get("/search/" + this.$route.params.username,{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 				this.users = response.data;
 			} catch (e) {
 				this.errormsg = e.toString();
@@ -39,7 +44,11 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + this.$route.params.username);
+				let response = await this.$axios.get("/search/" + this.$route.params.username,{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 
 				this.users = [response.data[0]];
 			} catch (e) {
@@ -128,6 +137,7 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
+				this.salvato=id
 				let response = await this.$axios.put("/users/"+ localStorage.getItem("id").toString()+"/ban/"+id.toString());
 				this.users = [response.data[0]];
 			} catch (e) {
@@ -147,7 +157,9 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.delete("/users/"+ localStorage.getItem("id").toString()+"/ban/"+id.toString());
+
+				console.log(this.salvato)
+				let response = await this.$axios.delete("/users/"+ localStorage.getItem("id").toString()+"/ban/"+this.salvato.toString());
 				this.users = [response.data[0]];
 			} catch (e) {
 				this.errormsg = e.toString();

@@ -28,7 +28,11 @@ export default {
 			this.errormsg = null;
 
 			try {
-				let u = await this.$axios.get("/search/" + localStorage.getItem("username"));
+				let u = await this.$axios.get("/search/" + localStorage.getItem("username"),{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 				this.ut = u.data[0].Id
                 
 
@@ -53,7 +57,11 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + localStorage.getItem("username"));
+				let response = await this.$axios.get("/search/" + localStorage.getItem("username"),{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 				this.users = response.data;
    
 			} catch (e) {
@@ -67,7 +75,11 @@ export default {
 			this.errormsg = null;
 			try {
 
-				let response = await this.$axios.get("/search/" + localStorage.getItem("username"));
+				let response = await this.$axios.get("/search/" + localStorage.getItem("username"),{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 
 				this.users = [response.data[0]];
 			} catch (e) {
@@ -100,7 +112,11 @@ export default {
 			this.errormsg = null;
 			try {
 				
-				let u = await this.$axios.get("/search/" + localStorage.getItem("username"));
+				let u = await this.$axios.get("/search/" + localStorage.getItem("username"),{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 				this.ut = u.data[0].Id
 				let response = await this.$axios.post("/profile/"+ this.ut +"/photo", this.images);
 				this.foto = response.data;

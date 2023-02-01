@@ -20,7 +20,11 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + utente);
+				let response = await this.$axios.get("/search/" + utente,{
+                    	headers: {
+							Authorization: localStorage.getItem("token")
+						}
+                });
 				this.users = response.data;
 			} catch (e) {
 				this.errormsg = e.toString();

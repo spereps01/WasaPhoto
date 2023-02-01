@@ -98,7 +98,7 @@ type AppDatabase interface {
 
 	UnbanUser(idu int, idb int) (string, error)
 
-	GetUserProfile(username string) ([]Profile, error)
+	GetUserProfile(username string, id int) ([]Profile, error)
 
 	GetMyStream(tk int) ([]Photo, error)
 
