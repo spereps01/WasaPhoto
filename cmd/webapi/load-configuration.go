@@ -26,7 +26,8 @@ type WebAPIConfiguration struct {
 	}
 	Debug bool
 	DB    struct {
-		Filename string `conf:"default:/home/wasa/go/WasaPhoto/datab.db"`
+		//Filename string `conf:"default:/home/wasa/go/WasaPhoto/datab.db"`
+		Filename string `conf:"default:/tmp/decaf.db"`
 	}
 }
 
