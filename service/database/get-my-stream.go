@@ -40,6 +40,8 @@ func (db *appdbimpl) GetMyStream(tk int) ([]Photo, error) {
 
 	for _, v := range array {
 		var Photos []Photo
+
+		// getLikesbyId
 		Photos, err = db.GetPhotosbyId(v)
 
 		if err != nil {

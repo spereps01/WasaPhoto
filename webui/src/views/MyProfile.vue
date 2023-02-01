@@ -235,6 +235,9 @@ export default {
 		}
 
 	},
+	mounted() {
+		this.getOneUser()
+	}
 
 }
 </script>
@@ -279,12 +282,14 @@ export default {
 
 				</p>
 				<div v-if="!loading" v-for="p in u.Photos">
+
+						<a href="javascript:" class="btn btn-danger" @click="deletePhoto(p.Id_photo)">Delete Photo</a><br/>
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
-						<a href="javascript:" class="btn btn-danger" @click="deletePhoto(p.Id_photo)">Delete Photo</a>
+						Likes:{{p.N_like}}
 						<div class="card-body">
 							<a href="javascript:"  class="btn btn-primary" @click="likePhoto(p.Id_photo)">Like</a>
 							<a href="javascript:" class="btn btn-danger" @click="unlikePhoto(p.Id_photo)">Unlike</a>
-							<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Show Comments</a>
+							<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>
 							<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
            					<a href="javascript:" class="btn btn-success" style="width: 160px; height: 35px;" @click="commentPhoto(p.Id_photo)">Send Comment</a>
 						</div>

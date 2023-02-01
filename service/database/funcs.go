@@ -24,6 +24,7 @@ func (db *appdbimpl) GetUsernamebyId(id int) string {
 
 func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 	var Photos []Photo
+
 	rows, err := db.c.Query("SELECT id_photo,user_id,data,photo FROM photos WHERE user_id=?", id)
 	if err != nil {
 		return Photos, err
@@ -34,6 +35,13 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 		if err != nil {
 			return Photos, err
 		}
+
+		var count int
+		err = db.c.QueryRow("SELECT COUNT(*) FROM likes WHERE id_photo=? ", p.Id_photo).Scan(&count)
+		if err != nil {
+			return Photos, err
+		}
+		p.N_like = uint64(count)
 
 		p.Username = db.GetUsernamebyId(int(p.User_id))
 		Photos = append(Photos, p)

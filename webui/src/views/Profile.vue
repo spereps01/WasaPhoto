@@ -238,7 +238,7 @@ export default {
 	<div>
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Profilo</h1>
+			<h1 class="h2">Profile</h1>
 			<a href="javascript:" class="btn btn-primary" @click="goBack()">Home</a>
 			
 		</div>
@@ -267,6 +267,7 @@ export default {
 				</p>
 				<div v-if="!loading" v-for="p in u.Photos">
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
+						Likes:{{p.N_like}}
 						<a href="javascript:" class="btn btn-primary"  @click="likePhoto(p.Id_photo)">Like</a>
 						<a href="javascript:" class="btn btn-danger"  @click="unlikePhoto(p.Id_photo)">Unlike</a>
 						<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>

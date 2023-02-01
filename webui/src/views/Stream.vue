@@ -153,11 +153,12 @@ export default {
                 {{s.Username }}<br/>
             </button>
             <img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
-			Uploaded: {{s.Data}}
+			Uploaded: {{s.Data}}<br/>
+			Likes:{{s.N_like}}
 			<div class="card-body">
             <a href="javascript:"  class="btn btn-primary" @click="likePhoto(s.Id_photo)">Like</a>
             <a href="javascript:" class="btn btn-danger" @click="unlikePhoto(s.Id_photo)">Unlike</a>
-            <a href="javascript:" class="btn btn-warning" @click="getComments(s.Id_photo)">Show Comments</a>
+            <a href="javascript:" class="btn btn-warning" @click="getComments(s.Id_photo)">Comments</a>
 			
 			
             <input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
