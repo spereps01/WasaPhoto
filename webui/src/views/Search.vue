@@ -60,7 +60,7 @@ export default {
 
 
 
-		<div class="card" v-if="!loading" v-for="u in users">
+		<div class="card" v-if="!loading" v-for="u in users" :key="u.Id">
 
 			<div class="card-body">
 				<p class="card-text">

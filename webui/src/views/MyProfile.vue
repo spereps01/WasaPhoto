@@ -270,7 +270,7 @@ export default {
 
 
 
-		<div class="card" v-if="!loading" v-for="u in users">
+		<div class="card" v-if="!loading" v-for="u in users" :key="u.Id">
         
 
 			<div class="card-body">
@@ -281,7 +281,7 @@ export default {
 					Numero di followings:{{" "  + u.N_followings }}<br/>
 
 				</p>
-				<div v-if="!loading" v-for="p in u.Photos">
+				<div v-if="!loading" v-for="p in u.Photos" :key="p.Id_photo">
 
 						<a href="javascript:" class="btn btn-danger" @click="deletePhoto(p.Id_photo)">Delete Photo</a><br/>
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
@@ -315,7 +315,7 @@ export default {
             <div class="modal-content">
                 <h2>Comments</h2>
 
-                <div v-for="c in comments">
+                <div v-for="c in comments" :key="c.Comment_id">
 					user {{c.Owner_id}}
 					comment: {{c.Comment}}
 					<a  href="javascript:" class="btn btn-danger" v-if="checkID(c.Owner_id)==true">Delete Comment</a>

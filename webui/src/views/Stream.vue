@@ -148,7 +148,7 @@ export default {
 			<a href="javascript:" class="btn btn-primary" @click="goBack()">MyProfile</a>
         </div>
 
-        <div class="card" v-if="!loading" v-for="s in stream">
+        <div class="card" v-if="!loading" v-for="s in stream" :key="s.Id_photo">
             <button type="button" class="btn btn-sm btn-outline-dark" style="width: 100px; height: 40px;" @click="Myp(s.Username)">
                 {{s.Username }}<br/>
             </button>
@@ -171,7 +171,7 @@ export default {
             <div class="modal-content">
                 <h2>Comments</h2>
 
-                <div v-for="c in comments">
+                <div v-for="c in comments" :key="c.Comment_id">
 					user {{c.Owner_id}}
 					comment: {{c.Comment}}
 					<a  href="javascript:" class="btn btn-danger" v-if="checkID(c.Owner_id)==true">Delete Comment</a>
