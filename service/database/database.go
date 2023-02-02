@@ -50,6 +50,7 @@ type Photo struct {
 	Data     string
 	Photo    []byte
 	N_like   uint64
+	N_comm   uint64
 }
 type Comment struct {
 	Comment_id uint64

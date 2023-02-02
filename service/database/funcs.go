@@ -42,6 +42,12 @@ func (db *appdbimpl) GetPhotosbyId(id int) ([]Photo, error) {
 			return Photos, err
 		}
 		p.N_like = uint64(count)
+		var count2 int
+		err = db.c.QueryRow("SELECT COUNT(*) FROM comments WHERE id_ph=? ", p.Id_photo).Scan(&count2)
+		if err != nil {
+			return Photos, err
+		}
+		p.N_comm = uint64(count2)
 
 		p.Username = db.GetUsernamebyId(int(p.User_id))
 		Photos = append(Photos, p)

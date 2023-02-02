@@ -1,5 +1,7 @@
 package database
 
+import "sort"
+
 func (db *appdbimpl) GetUserProfile(username string, tk int) ([]Profile, error) {
 	var Profiles []Profile
 	rows, err := db.c.Query("SELECT id,username FROM users WHERE username LIKE ?", "%"+username+"%")
@@ -53,6 +55,9 @@ func (db *appdbimpl) GetUserProfile(username string, tk int) ([]Profile, error) 
 			}
 
 			p.Photos = Photos
+			sort.Slice(Photos, func(i, j int) bool {
+				return Photos[i].Data > Photos[j].Data
+			})
 			p.N_p = uint64(len(p.Photos))
 			p.N_followers = uint64(followers)
 			p.N_followings = uint64(followings)
