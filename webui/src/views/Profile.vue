@@ -189,6 +189,7 @@ export default {
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
+			this.comment = ""
 			this.getOneUser()
 		},
 		async getComments(id) {
@@ -265,7 +266,7 @@ export default {
 					Numero di followers:{{" "  + u.N_followers }}<br/>
 					Numero di followings:{{" "  + u.N_followings }}<br/>
 				</p>
-				<div v-if="!loading" v-for="p in u.Photos" :key="pp.Id_photo">
+				<div v-if="!loading" v-for="p in u.Photos" :key="p.Id_photo">
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
 						Likes:{{p.N_like}}
 						<a href="javascript:" class="btn btn-primary"  @click="likePhoto(p.Id_photo)">Like</a>
@@ -284,7 +285,7 @@ export default {
                 <h2>Comments</h2>
 
                 <div v-for="c in comments" :key="c.Comment_id">
-					user {{c.Owner_id}}
+					{{c.Owner_us}}
 					comment: {{c.Comment}}
 					<a  href="javascript:" class="btn btn-danger" v-if="checkID(c.Owner_id)==true">Delete Comment</a>
 					<a  href="javascript:" class="btn btn-danger" v-if="chI==true" style="width: 170px; height: 25px;" @click="deleteComment(c.Comment_id,c.Id_photo)">Delete Comment</a>

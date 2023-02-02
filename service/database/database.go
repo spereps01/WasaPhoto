@@ -56,6 +56,7 @@ type Comment struct {
 	Id_photo   uint64
 	Comment    string
 	Owner_id   uint64
+	Owner_us   string
 }
 type Like struct {
 	Id_photo uint64

@@ -87,6 +87,7 @@ export default {
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
+			this.comment = ""
 			this.getStream()
 		},
 		async getComments(id) {
@@ -172,7 +173,7 @@ export default {
                 <h2>Comments</h2>
 
                 <div v-for="c in comments" :key="c.Comment_id">
-					user {{c.Owner_id}}
+					{{c.Owner_us}}
 					comment: {{c.Comment}}
 					<a  href="javascript:" class="btn btn-danger" v-if="checkID(c.Owner_id)==true">Delete Comment</a>
 					<a  href="javascript:" class="btn btn-danger" v-if="chI==true" style="width: 170px; height: 35px;" @click="deleteComment(c.Comment_id,c.Id_photo)">Delete Comment</a>

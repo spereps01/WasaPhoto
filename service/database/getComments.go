@@ -13,10 +13,12 @@ func (db *appdbimpl) GetComments(photoid int) ([]Comment, error) {
 		if err != nil {
 			return nil, err
 		}
+		c.Owner_us = db.GetUsernamebyId(int(c.Owner_id))
 		set = append(set, c)
 	}
 	if rows.Err() != nil {
 		return nil, err
 	}
+
 	return set, nil
 }
