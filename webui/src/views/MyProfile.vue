@@ -286,6 +286,7 @@ export default {
 
 						<a href="javascript:" class="btn btn-danger" @click="deletePhoto(p.Id_photo)">Delete Photo</a><br/>
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
+						Uploaded: {{p.Data}}<br/>
 						Likes:{{p.N_like}}
 						Comments:{{p.N_comm}}
 						<div class="card-body">

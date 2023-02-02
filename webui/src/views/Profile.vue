@@ -268,7 +268,9 @@ export default {
 				</p>
 				<div v-if="!loading" v-for="p in u.Photos" :key="p.Id_photo">
 						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
+						Uploaded: {{p.Data}}<br/>
 						Likes:{{p.N_like}}
+						Comments:{{p.N_comm}}<br/>
 						<a href="javascript:" class="btn btn-primary"  @click="likePhoto(p.Id_photo)">Like</a>
 						<a href="javascript:" class="btn btn-danger"  @click="unlikePhoto(p.Id_photo)">Unlike</a>
 						<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>

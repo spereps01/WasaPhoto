@@ -25,7 +25,11 @@ export default {
 							Authorization: localStorage.getItem("token")
 						}
                 });
+
 				this.users = response.data;
+				this.users = this.users.filter(item => item.Username !== localStorage.getItem("username"));
+
+				
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
