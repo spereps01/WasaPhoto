@@ -1,6 +1,5 @@
 package api
 
-//r.Header.Get("Authorization")
 import (
 	"encoding/json"
 
