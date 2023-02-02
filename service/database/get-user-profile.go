@@ -28,6 +28,9 @@ func (db *appdbimpl) GetUserProfile(username string, tk int) ([]Profile, error) 
 				return Profiles, err
 			}
 		}
+		if idx.Err() != nil {
+			return nil, err
+		}
 
 		var count int
 		err = db.c.QueryRow("SELECT COUNT(*) FROM banned WHERE idu=? AND idp=?", int(p.Id), id).Scan(&count)

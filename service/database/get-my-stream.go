@@ -20,8 +20,8 @@ func (db *appdbimpl) GetMyStream(tk int) ([]Photo, error) {
 			return stream, err
 		}
 	}
-	if err = idx.Err(); err != nil {
-		return stream, err
+	if idx.Err() != nil {
+		return nil, err
 	}
 
 	foll, err := db.c.Query("SELECT id2 FROM follow WHERE id1=?", id)
@@ -36,6 +36,9 @@ func (db *appdbimpl) GetMyStream(tk int) ([]Photo, error) {
 		}
 		array = append(array, a)
 
+	}
+	if foll.Err() != nil {
+		return nil, err
 	}
 
 	for _, v := range array {
