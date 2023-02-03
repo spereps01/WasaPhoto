@@ -5,7 +5,7 @@ export default {
 			errormsg: null,
 			loading: false,
 			utente:null,
-			users: [],
+			users: null,
 		}
 	},
 	methods: {
@@ -20,20 +20,33 @@ export default {
 			this.loading = true;
 			this.errormsg = null;
 			try {
-				let response = await this.$axios.get("/search/" + utente,{
-                    	headers: {
-							Authorization: localStorage.getItem("token")
-						}
-                });
+				if (utente !=null && utente !="" ){
+					let response = await this.$axios.get("/search/" + utente,{
+							headers: {
+								Authorization: localStorage.getItem("token")
+							}
+					});
 
-				this.users = response.data;
-				this.users = this.users.filter(item => item.Username !== localStorage.getItem("username"));
+					this.users = response.data;
+					this.users = this.users.filter(item => item.Username !== localStorage.getItem("username"));
 
-				
+				}	
+				else{
+					alert("Enter username!")
+				}
 			} catch (e) {
 				this.errormsg = e.toString();
 			}
-			this.loading = false;
+			if(this.users!=null || utente==null){
+
+				this.loading = false;
+			}
+			else{
+
+				this.errormsg="User does not exist"
+			}
+
+			utente=null
 		},
 		async goBack() {
 			this.$router.push("/stream");

@@ -128,7 +128,7 @@ func New(db *sql.DB) (AppDatabase, error) {
 		sqlStmt := `
 		CREATE TABLE IF NOT EXISTS users (
 			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-			username TEXT,
+			username TEXT NOT NULL,
 			token INTEGER,
 			UNIQUE (username),
 			UNIQUE (id),

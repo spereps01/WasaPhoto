@@ -40,12 +40,14 @@ export default {
                     username: this.username
                 });
 				localStorage.setItem("username",this.username)
+				alert("Username changed correctly!")
   
 			} catch (e) {
+				alert("Username already in use,try with an other one")
 				this.errormsg = e.toString();
 			}
 			this.loading = false;
-			alert("Username changed correctly!")
+			
 		},
 
 
