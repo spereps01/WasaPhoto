@@ -159,9 +159,7 @@ export default {
 			if (this.likeStatus==false){
 				this.likeStatus=true
 			}
-			else{
-				alert("Like already added!")
-			}
+
 		},
 		
 		async unlikePhoto(id) {
@@ -179,9 +177,7 @@ export default {
 			if (this.likeStatus==true){
 				this.likeStatus=false
 			}
-			else{
-				alert("Like already removed!")
-			}
+			
 		},
         async commentPhoto(id) {
 	
