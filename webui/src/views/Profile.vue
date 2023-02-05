@@ -245,39 +245,43 @@ export default {
 		<LoadingSpinner v-if="loading"></LoadingSpinner>
 
 
+		<div class="card" v-if="!loading">
+			<div class="card" v-for="u in users" :key="u.Id">
+				<div class="card-body">
+					<a href="javascript:" class="btn btn-warning"  @click="followUser(u.Id)">Follow</a>
+					<a href="javascript:" class="btn btn-danger"  @click="unfollowUser(u.Id)">Unfollow</a>
+					<p></p>
+					<a href="javascript:" class="btn btn-warning" @click="banUser(u.Id)">Ban</a>
+					<a href="javascript:" class="btn btn-danger" @click="unbanUser(u.Id)">Unban</a>
+				</div>
 
-		<div class="card" v-if="!loading" v-for="u in users" :key="u.Id">
-		<div class="card-body">
-			<a href="javascript:" class="btn btn-warning"  @click="followUser(u.Id)">Follow</a>
-			<a href="javascript:" class="btn btn-danger"  @click="unfollowUser(u.Id)">Unfollow</a>
-			<p></p>
-			<a href="javascript:" class="btn btn-warning" @click="banUser(u.Id)">Ban</a>
-			<a href="javascript:" class="btn btn-danger" @click="unbanUser(u.Id)">Unban</a>
-		</div>
+				<div class="card-body">
+					<p class="card-text">
+						Username:{{" "  + u.Username }}<br/>
+						Numero di foto:{{" "  + u.N_p }}<br/>
+						Numero di followers:{{" "  + u.N_followers }}<br/>
+						Numero di followings:{{" "  + u.N_followings }}<br/>
+					</p>
+					<div v-if="!loading">
+						<div v-for="p in u.Photos" :key="p.Id_photo">
+								<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
+								Uploaded: {{p.Data}}<br/>
+								Likes:{{p.N_like}}
+								Comments:{{p.N_comm}}<br/>
+								<a href="javascript:" class="btn btn-primary"  @click="likePhoto(p.Id_photo)">Like</a>
+								<a href="javascript:" class="btn btn-danger"  @click="unlikePhoto(p.Id_photo)">Unlike</a>
+								<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>
+								
+								<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
+								<a href="javascript:" class="btn btn-success" @click="commentPhoto(p.Id_photo)">Send Comment</a>
+								
 
-			<div class="card-body">
-				<p class="card-text">
-					Username:{{" "  + u.Username }}<br/>
-					Numero di foto:{{" "  + u.N_p }}<br/>
-					Numero di followers:{{" "  + u.N_followers }}<br/>
-					Numero di followings:{{" "  + u.N_followings }}<br/>
-				</p>
-				<div v-if="!loading" v-for="p in u.Photos" :key="p.Id_photo">
-						<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
-						Uploaded: {{p.Data}}<br/>
-						Likes:{{p.N_like}}
-						Comments:{{p.N_comm}}<br/>
-						<a href="javascript:" class="btn btn-primary"  @click="likePhoto(p.Id_photo)">Like</a>
-						<a href="javascript:" class="btn btn-danger"  @click="unlikePhoto(p.Id_photo)">Unlike</a>
-						<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>
-						
-						<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
-						<a href="javascript:" class="btn btn-success" @click="commentPhoto(p.Id_photo)">Send Comment</a>
-						
-
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 		<div v-if="showComments" class="modal-overlay">
             <div class="modal-content">
                 <h2>Comments</h2>

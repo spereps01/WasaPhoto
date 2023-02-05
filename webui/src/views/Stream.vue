@@ -145,25 +145,27 @@ export default {
 			<a href="javascript:" class="btn btn-primary" @click="goBack()">MyProfile</a>
         </div>
 
-        <div class="card" v-if="!loading" v-for="s in stream" :key="s.Id_photo">
-            <button type="button" class="btn btn-sm btn-outline-dark" style="width: 100px; height: 40px;" @click="Myp(s.Username)">
-                {{s.Username }}<br/>
-            </button>
-            <img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
-			Uploaded: {{s.Data}}<br/>
-			Likes:{{s.N_like}}
-			Comments:{{s.N_comm}}
-			<div class="card-body">
-            <a href="javascript:"  class="btn btn-primary" @click="likePhoto(s.Id_photo)">Like</a>
-            <a href="javascript:" class="btn btn-danger" @click="unlikePhoto(s.Id_photo)">Unlike</a>
-            <a href="javascript:" class="btn btn-warning" @click="getComments(s.Id_photo)">Comments</a>
-			
-			
-            <input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
-            <a href="javascript:" class="btn btn-success" style="width: 160px; height: 35px;" @click="commentPhoto(s.Id_photo)">Send Comment</a>
+		<div class="card" v-if="!loading">
+			<div class="card" v-for="s in stream" :key="s.Id_photo">
+				<button type="button" class="btn btn-sm btn-outline-dark" style="width: 100px; height: 40px;" @click="Myp(s.Username)">
+					{{s.Username }}<br/>
+				</button>
+				<img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
+				Uploaded: {{s.Data}}<br/>
+				Likes:{{s.N_like}}
+				Comments:{{s.N_comm}}
+				<div class="card-body">
+				<a href="javascript:"  class="btn btn-primary" @click="likePhoto(s.Id_photo)">Like</a>
+				<a href="javascript:" class="btn btn-danger" @click="unlikePhoto(s.Id_photo)">Unlike</a>
+				<a href="javascript:" class="btn btn-warning" @click="getComments(s.Id_photo)">Comments</a>
+				
+				
+				<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
+				<a href="javascript:" class="btn btn-success" style="width: 160px; height: 35px;" @click="commentPhoto(s.Id_photo)">Send Comment</a>
+				</div>
+				
 			</div>
-			
-        </div>
+		</div>
 
         <div v-if="showComments" class="modal-overlay">
             <div class="modal-content">

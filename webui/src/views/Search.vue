@@ -76,16 +76,17 @@ export default {
 		<LoadingSpinner v-if="loading"></LoadingSpinner>
 
 
+		<div class="card" v-if="!loading">
+			<div class="card" v-for="u in users" :key="u.Id">
 
-		<div class="card" v-if="!loading" v-for="u in users" :key="u.Id">
+				<div class="card-body">
+					<p class="card-text">
+						<button type="button" class="btn btn-sm btn-outline-primary" @click="newItem(u.Username)">
+							{{ u.Username }}
+						</button>
 
-			<div class="card-body">
-				<p class="card-text">
-					<button type="button" class="btn btn-sm btn-outline-primary" @click="newItem(u.Username)">
-						{{ u.Username }}
-					</button>
-
-				</p>
+					</p>
+				</div>
 			</div>
 		</div>
 		
