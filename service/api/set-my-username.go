@@ -38,7 +38,7 @@ func (rt *_router) setMyUserName(w http.ResponseWriter, r *http.Request, ps http
 		// Note (2): we are adding the error and an additional field (`id`) to the log entry, so that we will receive
 		// the identifier of the fountain that triggered the error.
 		ctx.Logger.WithError(err).WithField("id", id).Error("can't update the username")
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
