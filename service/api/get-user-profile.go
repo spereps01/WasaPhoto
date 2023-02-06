@@ -22,7 +22,7 @@ func (rt *_router) getUserProfile(w http.ResponseWriter, r *http.Request, ps htt
 		return
 	}
 
-	dbuser, err := rt.db.GetUserProfile(username, int(tk))
+	dbuser, err := rt.db.GetUserProfile(username, tk)
 
 	if err != nil {
 		// In this case, we have an error on our side. Log the error (so we can be notified) and send a 500 to the user
