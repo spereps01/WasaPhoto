@@ -111,6 +111,7 @@ paths:
           schema: { $ref: "#/components/schemas/Profile/properties/id" }
 
       requestBody:
+        description: username
         content:
           application/json:
             schema: { $ref: "#/components/schemas/Profile/properties/username" }
@@ -160,6 +161,7 @@ paths:
 
 
       requestBody:
+        description: photo
         content:
           application/json:
             schema: { $ref: "#/components/schemas/Photo" }
@@ -417,6 +419,7 @@ paths:
 
 
       requestBody:
+        description: comment
         content:
           application/json:
             schema: { $ref: "#/components/schemas/comment" }
