@@ -55,7 +55,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Profile/properties/id"
+                $ref: "#/components/schemas/User"
+                
 
 
 
@@ -255,10 +256,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items: { $ref: "#/components/schemas/Photo/properties/comments" }  
-                minItems: 0 
-                maxItems: 5000
+                $ref: "#/components/schemas/Photo/properties/comments"   
+
 
 
 
@@ -521,6 +520,30 @@ components:
 
 
   schemas:
+    User:
+      title: User
+      description: This object represent a User for login
+      type: object
+      properties:
+        username:
+          description: user name
+          type: string
+          example: peppecarnicella
+          pattern: "^.*?$"
+          minLength: 3
+          maxLength: 16
+        id:
+          description: user identifier
+          type: integer
+          example: 1950329
+        token:
+          description: user identifier
+          type: integer
+          example: 55432
+
+
+
+
     Profile:
       title: Profile
       description: This object represent a profile
@@ -537,26 +560,10 @@ components:
           description: user identifier
           type: integer
           example: 1950329
-
-
-        followers:
-          description: user's followers list
-          type: array
-          items: { $ref: "#/components/schemas/Profile/properties/username"}
-          minItems: 0 
-          maxItems: 5000
-        followings:
-          description: user's followings list
-          type: array
-          items: { $ref: "#/components/schemas/Profile/properties/username"} 
-          minItems: 0 
-          maxItems: 5000
-        banned:
-          description: user's banned list
-          type: array
-          items: { $ref: "#/components/schemas/Profile/properties/username"} 
-          minItems: 0 
-          maxItems: 5000         
+        token:
+          description: user identifier
+          type: integer
+          example: 55432
 
         Photos:
           description: user's photos list

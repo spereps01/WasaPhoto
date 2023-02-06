@@ -1,13 +1,1 @@
-# Fountains!
-
-This is an example of web application for [Web and Software Application](http://gamificationlab.uniroma1.it/en/wasa/)
-course.
-
-See the [Fantastic Coffee (decaffeinated)](https://github.com/sapienzaapps/fantastic-coffee-decaffeinated) template for
-instructions and project structure.
-
-Note: this example uses SQLite, however you may implement a "naive" database using slices and maps.
-
-## License
-
-See [LICENSE](LICENSE).
+Keep in touch with your friends by sharing photos of special moments, thanks to WASAPhoto! You can upload your photos directly from your PC, and they will be visible to everyone following you.
