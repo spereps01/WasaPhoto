@@ -151,7 +151,7 @@ export default {
 					{{s.Username }}<br/>
 				</button>
 				<img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
-				Uploaded: {{s.Data}}<br/>
+				{{s.Data}}<br/>
 				Likes:{{s.N_like}}
 				Comments:{{s.N_comm}}
 				<div class="card-body">
@@ -160,7 +160,7 @@ export default {
 				<a href="javascript:" class="btn btn-warning" @click="getComments(s.Id_photo)">Comments</a>
 				
 				
-				<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
+				<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment" style="width: 285px; height: 35px;">
 				<a href="javascript:" class="btn btn-success" style="width: 160px; height: 35px;" @click="commentPhoto(s.Id_photo)">Send Comment</a>
 				</div>
 				

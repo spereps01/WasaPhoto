@@ -275,9 +275,9 @@ export default {
 				<div class="card-body">
 					<p class="card-text">
 						Username:{{" "  + u.Username }}<br/>
-						Numero di foto:{{" "  + u.N_p }}<br/>
-						Numero di followers:{{" "  + u.N_followers }}<br/>
-						Numero di followings:{{" "  + u.N_followings }}<br/>
+						Photo:{{" "  + u.N_p }}<br/>
+						Followers:{{" "  + u.N_followers }}<br/>
+						Followings:{{" "  + u.N_followings }}<br/>
 
 					</p>
 
@@ -286,14 +286,14 @@ export default {
 
 								<a href="javascript:" class="btn btn-danger" @click="deletePhoto(p.Id_photo)">Delete Photo</a><br/>
 								<img :src="'data:image/png;base64,' + p.Photo" width=300 height=300 /><br/>
-								Uploaded: {{p.Data}}<br/>
+								{{p.Data}}<br/>
 								Likes:{{p.N_like}}
 								Comments:{{p.N_comm}}
 								<div class="card-body">
 									<a href="javascript:"  class="btn btn-primary" @click="likePhoto(p.Id_photo)">Like</a>
 									<a href="javascript:" class="btn btn-danger" @click="unlikePhoto(p.Id_photo)">Unlike</a>
 									<a href="javascript:" class="btn btn-warning" @click="getComments(p.Id_photo)">Comments</a>
-									<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment">
+									<input type="string" class="form-control" id="comment" v-model="comment" placeholder="enter the comment" style="width: 285px; height: 35px;">
 									<a href="javascript:" class="btn btn-success" style="width: 160px; height: 35px;" @click="commentPhoto(p.Id_photo)">Send Comment</a>
 								</div>
 						</div>
