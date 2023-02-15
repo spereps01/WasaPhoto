@@ -147,7 +147,7 @@ export default {
 
 		<div class="card" v-if="!loading">
 			<div class="card" v-for="s in stream" :key="s.Id_photo">
-				<button type="button" class="btn btn-sm btn-outline-dark" style="width: 100px; height: 40px;" @click="Myp(s.Username)">
+				<button type="button" class="btn btn-sm btn-outline-light" style="width: 100px; height: 40px;" @click="Myp(s.Username)">
 					{{s.Username }}<br/>
 				</button>
 				<img :src="'data:image/png;base64,' + s.Photo" width=300 height=300 />
